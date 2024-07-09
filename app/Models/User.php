@@ -17,9 +17,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'login',
+        'firstname',
+        'lastname',
         'email',
         'password',
+        'langue',
+        'role',
     ];
 
     /**
@@ -44,4 +48,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+
+
 }
