@@ -13,6 +13,7 @@ class Child extends Model
 
     protected $fillable = [
         'tutor_id',
+        'group_id',
         'firstname',
         'lastname',
         'birthday',
