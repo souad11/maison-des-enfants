@@ -304,7 +304,14 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
+        [
+            'type' => 'navbar-item',
+            'text' => 'Accueil',
+            'icon' => 'fas fa-fw fa-home',
+            'topnav_right' => true,
+            'url' => '/home', // Redirige vers la page d'accueil
+        ],
+        
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
@@ -316,6 +323,24 @@ return [
             'can' => 'manage-blog',
         ],
         [
+            'text' => 'Activités',
+            'url' => '/activities',
+            'icon' => 'fas fa-fw fa-calendar-alt', // Icône mise à jour pour représenter les activités
+            'can'  => 'admin'
+        ],
+        [
+            'text' => 'Prix',
+            'url'  => '/prices',
+            'icon' => 'fas fa-fw fa-tag',
+            'can'  => 'admin',
+        ],
+        [
+            'text' => 'Éducateurs',
+            'url' => '/educators',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher', 
+            'can'  => 'admin', 
+        ],
+        [
             'text' => 'pages',
             'url' => 'admin/pages',
             'icon' => 'far fa-fw fa-file',
@@ -325,12 +350,12 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'admin/settings',
+            'url' => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
+            'text' => 'Changer le mot de passe',
+            'url' =>  '/profile/password',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [

@@ -29,27 +29,28 @@
                 </div>
                 <div class="header_top_right">
                 <ul class="list-inline">
-                    @guest
-                    <li class="list-inline-item">
-                        <a href="{{ route('register') }}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">S'inscrire</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{ route('login') }}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Se connecter</a>
-                    </li>
-                    @else
-                    <li class="list-inline-item" style="margin-right: 20px;">
-                        <a class="btn btn-primary rounded-pill px-3 d-none d-lg-block" href="{{ url('/my-dashboard') }}">Mon tableau de bord</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="btn btn-primary rounded-pill px-3 d-none d-lg-block" href="{{ route('custom-logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt"></i> Se déconnecter
-                        </a>
-                        <form id="logout-form" action="{{ route('custom-logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
-                    @endguest
+                @guest
+                <li class="list-inline-item">
+                    <a href="{{ route('register') }}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">S'inscrire</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{{ route('login') }}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Se connecter</a>
+                </li>
+            @else
+                <li class="list-inline-item" style="margin-right: 20px;">
+                    <a class="btn btn-primary rounded-pill px-3 d-none d-lg-block" href="{{ url('/dashboard') }}">Mon tableau de bord</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn btn-primary rounded-pill px-3 d-none d-lg-block" href="javascript:void(0);"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            @endguest
+
                 </ul>
             </div>
 
