@@ -29,26 +29,17 @@ class ProfileController extends Controller
      * Afficher le profil de l'utilisateur connecté.
      */
     public function index()
-    {
-        $user = Auth::user();
-        return view('profile.index', compact('user'));
+{
+    $user = Auth::user();
+    $children = collect(); // Initialisez une collection vide pour les enfants
+
+    if ($user->role == 'tutor' && isset($user->tutor)) {
+        $children = $user->tutor->children; // Charge les enfants si l'utilisateur est un tuteur
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    // public function update(ProfileUpdateRequest $request): RedirectResponse
-    // {
-    //     $request->user()->fill($request->validated());
+    return view('profile.index', compact('user', 'children'));
+}
 
-    //     if ($request->user()->isDirty('email')) {
-    //         $request->user()->email_verified_at = null;
-    //     }
-
-    //     $request->user()->save();
-
-    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    // }
 
     public function update(Request $request)
     {

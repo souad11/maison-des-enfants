@@ -11,21 +11,17 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
+        // migration pour la table 'groups'
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('activity_id');
-            $table->unsignedBigInteger('educator_id');
             $table->string('title');
             $table->integer('min_age');
             $table->integer('max_age');
             $table->integer('capacity');
             $table->integer('available_space');
-
-            $table->foreign('activity_id')->references('id')->on('activities')
-                  ->onDelete('cascade');
-            $table->foreign('educator_id')->references('id')->on('users')
-                  ->onDelete('cascade');
+          
         });
+
     }
 
     /**

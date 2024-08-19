@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EducatorWelcomeMail;
+use App\Models\ActivityGroup;
 use App\Models\Educator;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,6 +22,14 @@ class EducatorController extends Controller
         $educators = Educator::with('user')->get();
 
         return view('educators.index', compact('educators'));
+    }
+
+    public function templateIndex()
+    {
+        //$educators = Educator::all();
+        $educators = Educator::with('user')->get();
+
+        return view('educators.template', compact('educators'));
     }
 
     /**
@@ -105,6 +114,7 @@ class EducatorController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

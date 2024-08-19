@@ -1,16 +1,22 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ActivityGroupController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducatorController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,13 +33,39 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::resource('activity_groups', ActivityGroupController::class);
+
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('activities', ActivityController::class);
     Route::resource('prices', PriceController::class);
     Route::resource('educators', EducatorController::class);
+    Route::resource('groups', GroupController::class);
+
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tutors/children/create', [TutorController::class, 'showAddChildForm'])->name('tutors.create_child');
+    Route::post('/tutors/children', [TutorController::class, 'storeChild'])->name('tutors.store_child');
+    Route::get('/tutors/enfant', [TutorController::class, 'showChildren'])->name('tutor.children');
+    Route::delete('/children/{child}', [TutorController::class, 'destroy'])->name('children.destroy');
+    
+
+});
+
+// Route pour afficher le formulaire d'inscription
+Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activities.register');
+Route::post('registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+
+
+
+
+Route::get('/activitiesTemplate', [ActivityController::class, 'templateIndex'])->name('activities.template');
 // Route::get('/activity', [ActivityController::class, 'index'])->name('activities.index');
+
+Route::get('/equipe', [EducatorController::class, 'templateIndex'])->name('educators.template');
 
 Route::get('/home', function () {
     return view('home');
@@ -42,6 +74,12 @@ Route::get('/home', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+// Route pour afficher le formulaire de contact
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+
+// Route pour soumettre le formulaire de contact
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/about', function () {
     return view('about');

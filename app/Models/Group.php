@@ -10,8 +10,8 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-        'activity_id',
-        'educator_id',
+        // 'activity_id',
+        // 'educator_id',
         'title',
         'min_age',
         'max_age',
@@ -22,6 +22,14 @@ class Group extends Model
     protected $table = 'groups';
 
     public $timestamps = false;
+
+      /**
+     * Les activités associées à ce groupe.
+     */
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class);
+    }
 
     // Méthodes
     // public function addParticipant()

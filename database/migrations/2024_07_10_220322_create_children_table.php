@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('children', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('tutor_id')->constrained('tutors')->onDelete('cascade'); 
-            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('set null');
             $table->string('firstname', 60);
             $table->string('lastname', 60);
             $table->date('birthday');

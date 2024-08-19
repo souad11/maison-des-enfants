@@ -1,5 +1,3 @@
-<!-- resources/views/profile/index.blade.php -->
-
 @extends('adminlte::page')
 
 @section('title', 'Profil')
@@ -18,7 +16,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Informations du profil</div>
-
                 <div class="card-body">
                     <p><strong>Prénom:</strong> {{ $user->firstname }}</p>
                     <p><strong>Nom:</strong> {{ $user->lastname }}</p>
@@ -45,13 +42,50 @@
         </div>
     </div>
 
-    @if ($user->role == 'tutor')
+    @if (Auth::user()->role == 'tutor')
         <div class="row justify-content-center mt-3">
             <div class="col-md-8">
-                <a href="{{ route('children.create') }}" class="btn btn-success">Ajouter un enfant</a>
+                <div class="card">
+                    <div class="card-header">Liste des Enfants</div>
+                    <div class="card-body">
+                        @if (!$children->isEmpty())
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Prénom</th>
+                                        <th>Nom</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($children as $child)
+                                        <tr>
+                                            <td>{{ $child->firstname }}</td>
+                                            <td>{{ $child->lastname }}</td>
+                                            <td>
+                                            <form action="{{ route('children.destroy', $child->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet enfant ?');">
+                                                    Supprimer
+                                                </button>
+                                            </form>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>Aucun enfant enregistré.</p>
+                        @endif
+                    </div>
+                </div>
+                <a href="{{ route('tutors.create_child') }}" class="btn btn-success">Ajouter un enfant</a>
             </div>
         </div>
     @endif
+
 </div>
 @stop
 

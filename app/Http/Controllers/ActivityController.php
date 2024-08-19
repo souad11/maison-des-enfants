@@ -25,6 +25,13 @@ class ActivityController extends Controller
         return view('activities.index', compact('activities'));
     }
 
+    public function templateIndex()
+    {
+
+        $activities = Activity::all();
+        return view('activities.template', compact('activities'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -49,17 +56,24 @@ class ActivityController extends Controller
 
         Activity::create($request->all());
 
-        return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
+        return redirect()->route('activities.index')->with('success', 'Activité créée avec succès.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
+        // Récupère l'activité par son ID
         $activity = Activity::findOrFail($id);
-        return view('activities.show', compact('activity'));
+
+        // Récupère les groupes associés à cette activité
+        $groups = $activity->groups;
+
+        // Retourne la vue avec les groupes
+        return view('activities.show', compact('activity', 'groups'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

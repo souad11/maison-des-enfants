@@ -13,7 +13,6 @@ class Child extends Model
 
     protected $fillable = [
         'tutor_id',
-        'group_id',
         'firstname',
         'lastname',
         'birthday',
@@ -27,7 +26,7 @@ class Child extends Model
     // Exemple : Un enfant appartient à un parent
     public function tutor()
     {
-        return $this->belongsTo(Tutor::class, 'parent_id');
+        return $this->belongsTo(Tutor::class);
     }
 
 

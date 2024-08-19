@@ -341,6 +341,20 @@ return [
             'can'  => 'admin', 
         ],
         [
+            'text' => 'Groupes',
+            'url'  => 'groups',
+            'icon' => 'fas fa-fw fa-users',
+            'can'  => 'admin',
+        ],
+        [
+            'text' => 'Activity Groups',
+            'url'  => '/activity_groups',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can'  => ['admin', 'educator'],
+            
+        ],
+        
+        [
             'text' => 'pages',
             'url' => 'admin/pages',
             'icon' => 'far fa-fw fa-file',
