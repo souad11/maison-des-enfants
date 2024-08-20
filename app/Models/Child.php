@@ -29,5 +29,10 @@ class Child extends Model
         return $this->belongsTo(Tutor::class);
     }
 
+     // Relation avec les inscriptions
+     public function registrations()
+     {
+         return $this->hasMany(Registration::class);
+     }
 
 }

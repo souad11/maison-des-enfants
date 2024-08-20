@@ -78,6 +78,7 @@ public function store(Request $request)
     return redirect()->route('activities.template')->with('success', 'Inscription réussie.');
 }
 
+
     
     // Méthodes pour gérer les paiements, afficher les inscriptions, etc., peuvent être ajoutées ici.
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,12 +36,17 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('activity_groups', ActivityGroupController::class);
 
+Route::get('/activity-group/{id}/participants', [ActivityGroupController::class, 'showParticipants'])->name('activity-groups.participants');
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('activities', ActivityController::class);
     Route::resource('prices', PriceController::class);
     Route::resource('educators', EducatorController::class);
     Route::resource('groups', GroupController::class);
+    Route::resource('schedules', ScheduleController::class);
+
 
 });
 
@@ -66,6 +72,7 @@ Route::get('/activitiesTemplate', [ActivityController::class, 'templateIndex'])-
 // Route::get('/activity', [ActivityController::class, 'index'])->name('activities.index');
 
 Route::get('/equipe', [EducatorController::class, 'templateIndex'])->name('educators.template');
+Route::get('/showEducator', [ActivityGroupController::class, 'showEducator'])->name('activityGroups.showEducator');
 
 Route::get('/home', function () {
     return view('home');

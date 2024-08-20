@@ -31,4 +31,15 @@ class ActivityGroup extends Model
     {
         return $this->belongsTo(Educator::class);
     }
+
+    public function schedule()
+    {
+        return $this->hasOne(Schedule::class);
+    }
+
+     // Relation avec les inscriptions
+     public function registrations()
+     {
+         return $this->hasMany(Registration::class);
+     }
 }

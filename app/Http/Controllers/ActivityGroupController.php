@@ -13,30 +13,43 @@ class ActivityGroupController extends Controller
     /**
      * Affiche la liste des associations Activité-Groupe.
      */
-    // public function index()
-    // {
-    //     // Récupérer toutes les associations entre les activités et les groupes
-    //     $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])->get();
-
-    //     return view('activity_groups.index', compact('activityGroups'));
-    // }
-
     public function index()
-{
-    // Vérifier si l'utilisateur est un éducateur
-    if (auth()->user()->role === 'educator') {
+    {
+        // Récupérer toutes les associations entre les activités et les groupes
+        $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])->get();
+
+        return view('activity_groups.index', compact('activityGroups'));
+    }
+
+//     public function index()
+// {
+//     // Vérifier si l'utilisateur est un éducateur
+//     if (auth()->user()->role === 'educator') {
+//         // Récupérer les groupes d'activités gérés par l'éducateur connecté
+//         $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])
+//                                        ->where('educator_id', auth()->user()->educator->id)
+//                                        ->get();
+//     } else {
+//         // Récupérer toutes les associations entre les activités et les groupes (pour les administrateurs ou autres)
+//         $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])->get();
+//     }
+
+//     return view('activity_groups.index', compact('activityGroups'));
+// }
+
+
+    public function showEducator() 
+    {
+        // Vérifier si l'utilisateur est un éducateur
+        if (auth()->user()->role === 'educator') {
         // Récupérer les groupes d'activités gérés par l'éducateur connecté
         $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])
                                        ->where('educator_id', auth()->user()->educator->id)
                                        ->get();
-    } else {
-        // Récupérer toutes les associations entre les activités et les groupes (pour les administrateurs ou autres)
-        $activityGroups = ActivityGroup::with(['activity', 'group', 'educator.user'])->get();
+        }
+        return view('activity_groups.showEducator', compact('activityGroups'));
+
     }
-
-    return view('activity_groups.index', compact('activityGroups'));
-}
-
 
     /**
      * Affiche le formulaire de création d'une nouvelle association Activité-Groupe.
@@ -69,4 +82,19 @@ class ActivityGroupController extends Controller
 
         return redirect()->route('activity_groups.index')->with('success', 'Association créée avec succès.');
     }
+
+    public function showParticipants($activityGroupId)
+    {
+        // Chargement de l'ActivityGroup avec les registrations et les enfants associés
+        $activityGroup = ActivityGroup::with(['registrations.child'])->find($activityGroupId);
+    
+        // Extraction des enfants à partir des registrations
+        $children = $activityGroup->registrations->map(function ($registration) {
+            return $registration->child;
+        });
+    
+        // Retourner la vue avec la liste des enfants
+        return view('activity_groups.participants', ['children' => $children]);
+    }
+    
 }

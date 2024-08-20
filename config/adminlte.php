@@ -350,9 +350,21 @@ return [
             'text' => 'Activity Groups',
             'url'  => '/activity_groups',
             'icon' => 'fas fa-fw fa-layer-group',
-            'can'  => ['admin', 'educator'],
+            'can'  => 'admin',
             
         ],
+        [
+            'text' => 'Activity Groups',
+            'url'  => '/showEducator',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can'  => 'educator',
+        ],
+        [
+            'text' => 'Plannings',
+            'url' => '/schedules',
+            'icon' => 'fas fa-fw fa-calendar-check', // Icône représentant les plannings
+            'can'  => 'educator'
+        ], 
         
         [
             'text' => 'pages',
