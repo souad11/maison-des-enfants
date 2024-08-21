@@ -23,8 +23,9 @@ class Activity extends Model
     public $timestamps = false;
 
     public function groups()
-    {
-        return $this->belongsToMany(Group::class);
-    }
+{
+    return $this->belongsToMany(Group::class, 'activity_groups', 'activity_id', 'group_id');
+}
+
 
 }

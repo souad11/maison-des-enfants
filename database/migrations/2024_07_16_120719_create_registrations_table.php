@@ -21,7 +21,7 @@ return new class extends Migration
             // Relations
             $table->foreign('child_id')->references('id')->on('children')
                   ->onDelete('cascade'); // Assure que l'inscription est supprimée si l'enfant est supprimé
-            $table->foreign('activity_group_id')->references('id')->on('activity_group')
+            $table->foreign('activity_group_id')->references('id')->on('activity_groups')
                   ->onDelete('cascade'); // Assure que l'inscription est supprimée si l'activité du groupe est supprimée
 
             // Index pour optimiser les recherches sur ces colonnes

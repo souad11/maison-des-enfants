@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('activity_group', function (Blueprint $table) {
-            if (!Schema::hasColumn('activity_group', 'educator_id')) {
-                $table->foreignId('educator_id')->nullable()->constrained('educators')->onDelete('cascade');
+        Schema::table('activity_groups', function (Blueprint $table) {
+            if (!Schema::hasColumn('activity_groups', 'educator_id')) {
+                $table->foreignId('educator_id')->constrained('educators')->onDelete('cascade');
             }
         });
     }
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('activity_group', function (Blueprint $table) {
+        Schema::table('activity_groups', function (Blueprint $table) {
             $table->dropForeign(['educator_id']);
             $table->dropColumn('educator_id');
         });

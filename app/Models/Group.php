@@ -27,9 +27,10 @@ class Group extends Model
      * Les activités associées à ce groupe.
      */
     public function activities()
-    {
-        return $this->belongsToMany(Activity::class);
-    }
+{
+    return $this->belongsToMany(Activity::class, 'activity_groups', 'group_id', 'activity_id');
+}
+
 
     // Méthodes
     // public function addParticipant()

@@ -35,4 +35,10 @@ class Child extends Model
          return $this->hasMany(Registration::class);
      }
 
+    // Relation avec les feedbacks
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
 }

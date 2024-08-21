@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityGroupTable extends Migration
+class CreateActivityGroupsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('activity_group', function (Blueprint $table) {
+        Schema::create('activity_groups', function (Blueprint $table) {
             $table->id(); // Crée une clé primaire de type 'unsignedBigInteger'
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('activity_id')->constrained('activities')->onDelete('cascade');
@@ -23,6 +23,6 @@ class CreateActivityGroupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_group');
+        Schema::dropIfExists('activity_groups');
     }
 }

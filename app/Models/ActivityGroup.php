@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityGroup extends Model
 {
-    protected $table = 'activity_group';
+    protected $table = 'activity_groups';
 
     protected $fillable = [
         'activity_id',
         'group_id',
         'educator_id', // Ajout de l'educator_id
     ];
+
+    public $timestamps = false;
+
 
     // Relation avec l'activité
     public function activity()
@@ -42,4 +45,10 @@ class ActivityGroup extends Model
      {
          return $this->hasMany(Registration::class);
      }
+
+    // Relation avec les feedbacks
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

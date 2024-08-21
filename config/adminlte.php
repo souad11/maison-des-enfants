@@ -365,7 +365,30 @@ return [
             'icon' => 'fas fa-fw fa-calendar-check', // Icône représentant les plannings
             'can'  => 'educator'
         ], 
-        
+        [
+            'text' => 'Feedbacks',
+            'url' => '/feedbacks',
+            'icon' => 'fas fa-fw fa-comments', // Icône représentant les feedbacks
+            'can'  => 'educator'
+        ],
+        [
+            'text' => 'Feedbacks Enfants',
+            'url'  => '/tutor/feedbacks',
+            'icon' => 'fas fa-fw fa-comments', // Icône représentant les feedbacks
+            'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
+        ],
+        [
+            'text' => 'Plannings Enfants',
+            'url'  => '/tutor/schedules',
+            'icon' => 'fas fa-fw fa-calendar-alt', // Icône représentant les plannings
+            'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
+        ],
+        [
+            'text' => 'Inscriptions Enfants',
+            'url'  => '/tutor/registrations',
+            'icon' => 'fas fa-fw fa-folder', // Icône représentant un dossier
+            'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
+        ],
         [
             'text' => 'pages',
             'url' => 'admin/pages',

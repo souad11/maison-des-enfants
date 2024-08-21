@@ -16,7 +16,8 @@
                     <th>Activité</th>
                     <th>Groupe</th>
                     <th>Âge</th>
-
+                    <th>Action</th> <!-- Colonne pour le lien Feedback -->
+                </tr>
             </thead>
             <tbody>
                 @foreach($activityGroups as $activityGroup)
@@ -25,8 +26,9 @@
                         <td>{{ $activityGroup->activity->title }}</td>
                         <td>{{ $activityGroup->group->title }}</td>
                         <td>{{ $activityGroup->group->min_age }} - {{ $activityGroup->group->max_age }} ans</td>
-                        
-
+                        <td>
+                        <a href="{{ route('feedbacks.children', ['activity_group_id' => $activityGroup->id]) }}" class="btn btn-primary">Donner Feedback</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

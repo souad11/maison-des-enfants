@@ -12,14 +12,13 @@ return new class extends Migration {
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_group_id')->constrained('activity_group')->onDelete('cascade');
+            $table->foreignId('activity_group_id')->constrained('activity_groups')->onDelete('cascade');
             $table->string('monday')->nullable();
             $table->string('tuesday')->nullable();
             $table->string('wednesday')->nullable();
             $table->string('thursday')->nullable();
             $table->string('friday')->nullable();
             $table->string('saturday')->nullable();
-            $table->timestamps(); // Pour ajouter created_at et updated_at
         });
     }
 

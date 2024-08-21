@@ -82,6 +82,61 @@ class TutorController extends Controller
         return back()->with('status', 'Enfant supprimé avec succès.');
     }
     
+    public function showChildrenFeedbacks()
+    {
+        // Obtenir le tuteur connecté
+        $tutor = Auth::user()->tutor;
+    
+        // Vérifier que l'utilisateur est bien un tuteur
+        if (!$tutor) {
+            return redirect()->route('profile.index')->withErrors('L\'utilisateur n\'est pas un tuteur.');
+        }
+    
+        // Récupérer les enfants du tuteur avec leurs feedbacks
+        $children = $tutor->children()->with('feedbacks.activityGroup.activity', 'feedbacks.activityGroup.group')->get();
+    
+        return view('tutors.children_feedbacks', compact('children'));
+    }
+
+    public function showChildrenSchedules()
+{
+    // Obtenir le tuteur connecté
+    $tutor = Auth::user()->tutor;
+
+    // Vérifier que l'utilisateur est bien un tuteur
+    if (!$tutor) {
+        return redirect()->route('profile.index')->withErrors('L\'utilisateur n\'est pas un tuteur.');
+    }
+
+    // Récupérer les enfants du tuteur avec les plannings des groupes d'activités
+    $children = $tutor->children()->with('registrations.activityGroup.schedule')->get();
+
+    //dd($children);
+
+
+
+    return view('tutors.children_schedules', compact('children'));
+}
+
+public function showChildrenRegistrations()
+{
+    // Obtenir le tuteur connecté
+    $tutor = Auth::user()->tutor;
+
+    // Vérifier que l'utilisateur est bien un tuteur
+    if (!$tutor) {
+        return redirect()->route('profile.index')->withErrors('L\'utilisateur n\'est pas un tuteur.');
+    }
+
+    // Récupérer les enfants du tuteur avec les plannings des groupes d'activités
+    $children = $tutor->children()->with('registrations.activityGroup')->get();
+
+    //dd($children);
+
+
+
+    return view('tutors.children_registrations', compact('children'));
+}
 
 
 }

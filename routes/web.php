@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityGroupController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducatorController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('educators', EducatorController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('schedules', ScheduleController::class);
+    Route::resource('feedbacks', FeedbackController::class);
+    Route::get('/feedbacks/children/{activity_group_id}', [FeedbackController::class, 'children'])->name('feedbacks.children');
+
 
 
 });
@@ -56,6 +60,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tutors/children', [TutorController::class, 'storeChild'])->name('tutors.store_child');
     Route::get('/tutors/enfant', [TutorController::class, 'showChildren'])->name('tutor.children');
     Route::delete('/children/{child}', [TutorController::class, 'destroy'])->name('children.destroy');
+    Route::get('/tutor/feedbacks', [TutorController::class, 'showChildrenFeedbacks'])->name('tutor.children_feedbacks');
+    Route::get('/tutor/schedules', [TutorController::class, 'showChildrenSchedules'])->name('tutor.children_schedules');
+    Route::get('/tutor/registrations', [TutorController::class, 'showChildrenRegistrations'])->name('tutor.children_registrations');
+
     
 
 });
