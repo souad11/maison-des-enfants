@@ -9,10 +9,12 @@ class Partner extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
+        'name',
         'description',
-        'url',
-        'logo',
+        'address',
+        'phone_number',
+        'website',
+        'picture',
     ];
 
     protected $table = 'partners';

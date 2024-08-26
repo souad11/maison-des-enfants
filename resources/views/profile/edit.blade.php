@@ -14,7 +14,6 @@
     <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
-
                 @csrf
                 @method('patch')
 
@@ -43,6 +42,16 @@
                         <label for="postal_code" class="form-label">Code Postal</label>
                         <input type="text" name="postal_code" id="postal_code" class="form-control" value="{{ old('postal_code', $user->tutor->postal_code) }}" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Numéro de Téléphone</label>
+                        <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old('phone_number', $user->tutor->phone_number) }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="emergency_contact" class="form-label">Contact d'Urgence</label>
+                        <input type="text" name="emergency_contact" id="emergency_contact" class="form-control" value="{{ old('emergency_contact', $user->tutor->emergency_contact) }}" required>
+                    </div>
                 @endif
 
                 @if ($user->role == 'educator')
@@ -60,9 +69,6 @@
             </form>
         </div>
     </div>
-
-
-
 @stop
 
 @section('css')

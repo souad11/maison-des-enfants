@@ -1,42 +1,32 @@
 @extends('adminlte::page')
 
-@section('title', 'Groupes pour ' . $activity->title)
+@section('title', 'Détails de l\'activité: ' . $activity->title)
 
 @section('content_header')
-    <h1>Groupes pour l'activité: {{ $activity->title }}</h1>
+    <h1>Détails de l'activité: {{ $activity->title }}</h1>
 @stop
 
 @section('content')
 <div class="container">
-    <h2>Groupes associés à l'activité: {{ $activity->title }}</h2>
-    
-    @if($groups->isEmpty())
-        <p>Aucun groupe associé à cette activité.</p>
-    @else
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Âge Min</th>
-                    <th>Âge Max</th>
-                    <th>Capacité</th>
-                    <th>Places Disponibles</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($groups as $group)
-                    <tr>
-                        <td>{{ $group->id }}</td>
-                        <td>{{ $group->title }}</td>
-                        <td>{{ $group->min_age }}</td>
-                        <td>{{ $group->max_age }}</td>
-                        <td>{{ $group->capacity }}</td>
-                        <td>{{ $group->available_space }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">{{ $activity->title }}</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Description:</strong> {{ $activity->description }}</p>
+            <p class="card-text">
+                <strong>Date de début:</strong> 
+                <span>{{ $activity->start_date}}</span>
+            </p>
+            <p class="card-text">
+                <strong>Date de fin:</strong> 
+                <span>{{ $activity->end_date }}</span>
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="{{ route('activities.edit', $activity->id) }}" class="btn btn-warning">Modifier l'activité</a>
+            <a href="{{ route('activities.index') }}" class="btn btn-secondary">Retour à la liste des activités</a>
+        </div>
+    </div>
 </div>
 @stop

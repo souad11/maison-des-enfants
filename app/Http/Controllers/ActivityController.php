@@ -68,10 +68,10 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
 
         // Récupère les groupes associés à cette activité
-        $groups = $activity->groups;
+        // $groups = $activity->groups;
 
         // Retourne la vue avec les groupes
-        return view('activities.show', compact('activity', 'groups'));
+        return view('activities.show', compact('activity'));
     }
 
 

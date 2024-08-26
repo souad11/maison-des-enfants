@@ -9,7 +9,7 @@
     <h1>{{ $educator->user->firstname }} {{ $educator->user->lastname }}</h1>
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ asset('photos/' . $educator->photo) }}" alt="Photo de l'éducateur" class="img-fluid mb-3">
+        <img src="{{ asset('storage/' . $educator->photo) }}" alt="Photo de l'éducateur" class="img-fluid mb-3" style="width: 200px;">
         </div>
         <div class="col-md-6">
             <h3>Description</h3>

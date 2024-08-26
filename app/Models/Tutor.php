@@ -16,7 +16,8 @@ class Tutor extends Model
         'user_id',
         'address',
         'postal_code',
-        'phone_number'
+        'phone_number',
+        'emergency_contact',
     ];
 
     public $timestamps = false;

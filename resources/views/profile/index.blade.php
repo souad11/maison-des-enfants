@@ -34,6 +34,8 @@
                     @if ($user->role == 'tutor')
                         <p><strong>Adresse:</strong> {{ $user->tutor->address }}</p>
                         <p><strong>Code Postal:</strong> {{ $user->tutor->postal_code }}</p>
+                        <p><strong>Numéro de Téléphone:</strong> {{ $user->tutor->phone_number }}</p>
+                        <p><strong>Contact d'Urgence:</strong> {{ $user->tutor->emergency_contact }}</p>
                     @endif
 
                     <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary">Modifier le profil</a>
@@ -42,7 +44,7 @@
         </div>
     </div>
 
-    @if (Auth::user()->role == 'tutor')
+    @if ($user->role == 'tutor')
         <div class="row justify-content-center mt-3">
             <div class="col-md-8">
                 <div class="card">

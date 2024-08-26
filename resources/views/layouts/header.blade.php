@@ -14,18 +14,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="#" class="nav-item nav-link active">Accueil</a>
-                    <a href="#" class="nav-item nav-link">A propos</a>
+                    <a href="{{ url('/home') }}" class="nav-item nav-link active">Accueil</a>
+                    <a href="{{ url('/about') }}" class="nav-item nav-link">A propos</a>
                     <a href="#" class="nav-item nav-link">Nos partenaires</a>
-                    <a href="#" class="nav-item nav-link">Notre équipe</a>
+                    <a href="{{ url('/equipe') }}" class="nav-item nav-link">Notre équipe</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nos activités</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
                             <a href="#" class="dropdown-item">Activités à l'année</a>
-                            <a href="#" class="dropdown-item">Activités hebdomadaires</a>
+                            <a href="{{ url('/activitiesTemplate') }}" class="dropdown-item">Activités hebdomadaires</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="header_top_right">
                 <ul class="list-inline">

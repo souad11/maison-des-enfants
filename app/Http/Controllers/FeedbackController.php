@@ -10,11 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
-    // Afficher la liste des feedbacks
     public function index()
     {
-        $feedbacks = Feedback::with(['child', 'activityGroup'])->get(); // Récupérer tous les feedbacks avec les relations
-        return view('feedbacks.index', compact('feedbacks')); // Retourne une vue avec les feedbacks
+        // Obtenir l'animateur connecté
+        $educatorId = Auth::user()->educator->id;
+    
+        // Récupérer les feedbacks des groupes d'activités gérés par cet animateur
+        $feedbacks = Feedback::whereHas('activityGroup', function($query) use ($educatorId) {
+            $query->where('educator_id', $educatorId);
+        })->with(['child', 'activityGroup'])->get();
+    
+        return view('feedbacks.index', compact('feedbacks'));
     }
 
     public function create(Request $request)

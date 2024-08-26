@@ -54,6 +54,8 @@ class ProfileController extends Controller
         if ($request->user()->role == 'tutor') {
             $rules['address'] = ['required', 'string', 'max:255'];
             $rules['postal_code'] = ['required', 'string', 'max:10'];
+            $rules['phone_number'] = ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'];  // Validation du numéro de téléphone
+            $rules['emergency_contact'] = ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'];
         }
 
          // Validation supplémentaire pour les éducateurs
@@ -76,14 +78,18 @@ class ProfileController extends Controller
     
         // Sauvegarder les modifications de l'utilisateur
         $user->save();
-    
-        // Si l'utilisateur est un tuteur, mettre à jour les informations dans la table tutors
+
+        // Si c'est un tuteur
         if ($request->user()->role == 'tutor') {
-            $tutor = $user->tutor; // Assurez-vous que la relation tutor est bien définie dans le modèle User
+            $tutor = $user->tutor;
             $tutor->address = $request->address;
             $tutor->postal_code = $request->postal_code;
-            $tutor->save(); // Sauvegarde des informations du tuteur
+            $tutor->phone_number = $request->phone_number;
+            $tutor->emergency_contact = $request->emergency_contact;
+        
+            $tutor->save(); // Sauvegarder les modifications dans la base de données
         }
+        
 
                 // Gestion spécifique aux éducateurs
         if ($request->user()->role == 'educator') {

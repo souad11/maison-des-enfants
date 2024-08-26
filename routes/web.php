@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
@@ -48,11 +49,18 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('groups', GroupController::class);
     Route::resource('schedules', ScheduleController::class);
     Route::resource('feedbacks', FeedbackController::class);
+    Route::resource('partners', PartnerController::class);
+
     Route::get('/feedbacks/children/{activity_group_id}', [FeedbackController::class, 'children'])->name('feedbacks.children');
 
 
 
 });
+
+Route::get('/partnersTemplate', [PartnerController::class, 'template'])->name('partners.template');
+Route::get('/partners/{id}/template', [PartnerController::class, 'showTemplate'])->name('partners.showTemplate');
+
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -71,8 +79,6 @@ Route::middleware(['auth'])->group(function () {
 // Route pour afficher le formulaire d'inscription
 Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activities.register');
 Route::post('registrations', [RegistrationController::class, 'store'])->name('registrations.store');
-
-
 
 
 

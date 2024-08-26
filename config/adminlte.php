@@ -354,6 +354,12 @@ return [
             
         ],
         [
+            'text' => 'Partenaires',
+            'url' => '/partners',
+            'icon' => 'fas fa-fw fa-handshake',
+            'can' => 'admin'
+        ],
+        [
             'text' => 'Activity Groups',
             'url'  => '/showEducator',
             'icon' => 'fas fa-fw fa-layer-group',

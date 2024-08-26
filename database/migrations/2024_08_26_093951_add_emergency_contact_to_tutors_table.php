@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('partners', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 60);
-            $table->string('description');
-            $table->string('url')->nullable();
-            $table->string('logo')->nullable();
-            
+        Schema::table('tutors', function (Blueprint $table) {
+            $table->string('emergency_contact', 15)->after('phone_number')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('partners');
+        Schema::table('tutors', function (Blueprint $table) {
+            $table->dropColumn('emergency_contact');
+        });
     }
 };

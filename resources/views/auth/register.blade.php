@@ -2,16 +2,18 @@
     <h2 class="text-xl font-semibold leading-tight text-gray-800">
         Bienvenue à la Maison des Enfants - Inscription
     </h2>
+    
     {{-- Affichage des erreurs de validation ici --}}
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -36,16 +38,6 @@
             <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
 
-        <!-- Language -->
-        <div class="mt-4">
-            <x-input-label for="langue" :value="__('Language')" />
-            <select id="langue" class="block mt-1 w-full form-control" name="langue" required>
-                <option value="fr" {{ old('langue') == 'fr' ? 'selected' : '' }}>Français</option>
-                <option value="en" {{ old('langue') == 'en' ? 'selected' : '' }}>Anglais</option>
-            </select>
-            <x-input-error :messages="$errors->get('langue')" class="mt-2" />
-        </div>
-
         <!-- Address -->
         <div class="mt-4">
             <x-input-label for="address" :value="__('Adresse')" />
@@ -65,6 +57,13 @@
             <x-input-label for="phone_number" :value="__('Numéro de Téléphone')" />
             <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autocomplete="tel" />
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="mt-4">
+            <x-input-label for="emergency_contact" :value="__('Contact d\'Urgence')" />
+            <x-text-input id="emergency_contact" class="block mt-1 w-full" type="text" name="emergency_contact" :value="old('emergency_contact')" required autocomplete="tel" />
+            <x-input-error :messages="$errors->get('emergency_contact')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
