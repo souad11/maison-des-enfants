@@ -16,7 +16,7 @@
                 <div class="navbar-nav mx-auto">
                     <a href="{{ url('/home') }}" class="nav-item nav-link active">Accueil</a>
                     <a href="{{ url('/about') }}" class="nav-item nav-link">A propos</a>
-                    <a href="#" class="nav-item nav-link">Nos partenaires</a>
+                    <a href="{{ url('/partnersTemplate') }}" class="nav-item nav-link">Nos partenaires</a>
                     <a href="{{ url('/equipe') }}" class="nav-item nav-link">Notre équipe</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nos activités</a>
@@ -43,7 +43,7 @@
                 <li class="list-inline-item">
                     <a class="btn btn-primary rounded-pill px-3 d-none d-lg-block" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                         Se déconnecter
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

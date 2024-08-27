@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Feedback;
 use App\Models\Child;
 use App\Models\ActivityGroup;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,9 @@ class FeedbackController extends Controller
 {
     public function index()
     {
+
+        Gate::authorize('viewAny', Feedback::class);
+
         // Obtenir l'animateur connecté
         $educatorId = Auth::user()->educator->id;
     
@@ -25,6 +29,9 @@ class FeedbackController extends Controller
 
     public function create(Request $request)
 {
+
+    Gate::authorize('create', Feedback::class);
+
     $childId = $request->input('child_id');
     $activityGroupId = $request->input('activity_group_id');
 
@@ -53,6 +60,9 @@ public function children($activityGroupId)
     // Enregistrer un nouveau feedback
     public function store(Request $request)
     {
+        Gate::authorize('create', Feedback::class);
+
+
         $request->validate([
             'child_id' => 'required|exists:children,id',
             'activity_group_id' => 'required|exists:activity_groups,id',
@@ -68,6 +78,9 @@ public function children($activityGroupId)
     public function show($id)
     {
         $feedback = Feedback::with(['child', 'activityGroup'])->findOrFail($id);
+
+        Gate::authorize('view', $feedback);
+
         return view('feedbacks.show', compact('feedback'));
     }
 
@@ -75,6 +88,9 @@ public function children($activityGroupId)
     public function edit($id)
     {
         $feedback = Feedback::findOrFail($id);
+
+        Gate::authorize('update', $feedback);
+
         $children = Child::all();
         $activityGroups = ActivityGroup::all();
         return view('feedbacks.edit', compact('feedback', 'children', 'activityGroups'));
@@ -83,6 +99,8 @@ public function children($activityGroupId)
     // Mettre à jour un feedback existant
     public function update(Request $request, $id)
     {
+        
+
         $request->validate([
             'child_id' => 'required|exists:children,id',
             'activity_group_id' => 'required|exists:activity_groups,id',
@@ -90,6 +108,9 @@ public function children($activityGroupId)
         ]);
 
         $feedback = Feedback::findOrFail($id);
+
+        Gate::authorize('update', $feedback);
+
         $feedback->update($request->all());
 
         return redirect()->route('feedbacks.index')->with('success', 'Feedback updated successfully.');
@@ -99,6 +120,9 @@ public function children($activityGroupId)
     public function destroy($id)
     {
         $feedback = Feedback::findOrFail($id);
+
+        Gate::authorize('delete', $feedback);
+
         $feedback->delete();
 
         return redirect()->route('feedbacks.index')->with('success', 'Feedback deleted successfully.');

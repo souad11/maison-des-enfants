@@ -6,6 +6,7 @@ use App\Mail\EducatorWelcomeMail;
 use App\Models\ActivityGroup;
 use App\Models\Educator;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -18,6 +19,9 @@ class EducatorController extends Controller
      */
     public function index()
     {
+
+        Gate::authorize('viewAny', Educator::class);
+
         //$educators = Educator::all();
         $educators = Educator::with('user')->get();
 
@@ -37,6 +41,8 @@ class EducatorController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Educator::class);
+
         return view('educators.create');
     }
 
@@ -46,6 +52,9 @@ class EducatorController extends Controller
     public function store(Request $request)
     {
         try {
+
+            Gate::authorize('create', Educator::class);
+
             $validatedData = $request->validate([
                 'firstname' => 'required|string|max:255',
                 'lastname' => 'required|string|max:255',
@@ -96,6 +105,9 @@ class EducatorController extends Controller
     public function show(string $id)
     {
         $educator = Educator::with('user')->findOrFail($id);
+
+        Gate::authorize('view', $educator);
+
         return view('educators.show', compact('educator'));
     }
 
@@ -122,6 +134,8 @@ class EducatorController extends Controller
     public function destroy(string $id)
     {
         $educator = Educator::findOrFail($id);
+        Gate::authorize('delete', $educator);
+
         $educator->delete();
 
         return redirect()->route('educators.index')->with('success', 'Éducateur supprimé avec succès!');
