@@ -15,5 +15,9 @@ class Price extends Model
 
     public $timestamps = false;
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'price_id');
+    }
 
 }

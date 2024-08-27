@@ -27,5 +27,10 @@ class Activity extends Model
     return $this->belongsToMany(Group::class, 'activity_groups', 'activity_id', 'group_id');
 }
 
+public function price()
+    {
+        return $this->belongsTo(Price::class, 'price_id');
+    }
+
 
 }

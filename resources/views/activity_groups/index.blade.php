@@ -23,10 +23,14 @@
                     <td>{{ $activityGroup->group->title }} ({{ $activityGroup->group->min_age }}-{{ $activityGroup->group->max_age }} ans)</td>
                     <td>{{ $activityGroup->educator->user->firstname }} {{ $activityGroup->educator->user->lastname }}</td>
                     <td>
+                        <!-- Bouton Modifier -->
+                        <a href="{{ route('activity_groups.edit', $activityGroup->id) }}" class="btn btn-warning">Modifier</a>
+
+                        <!-- Bouton Supprimer -->
                         <form action="{{ route('activity_groups.destroy', $activityGroup->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette association ?');">Supprimer</button>
                         </form>
                     </td>
                 </tr>

@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Price;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
 {
@@ -16,18 +15,17 @@ class ActivityController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Activity::class);
 
-        if (! Gate::allows('admin')) {
-            abort(403, 'Unauthorized');
-        }
-        
         $activities = Activity::all();
         return view('activities.index', compact('activities'));
     }
 
+    /**
+     * Display the activities for the public template.
+     */
     public function templateIndex()
     {
-
         $activities = Activity::all();
         return view('activities.template', compact('activities'));
     }
@@ -37,6 +35,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Activity::class);
+
         $prices = Price::all(); 
         return view('activities.create', compact('prices'));
     }
@@ -46,6 +46,8 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', Activity::class);
+
         $request->validate([
             'price_id' => 'required|exists:prices,id',
             'title' => 'required|string|max:255',
@@ -64,16 +66,12 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        // Récupère l'activité par son ID
         $activity = Activity::findOrFail($id);
 
-        // Récupère les groupes associés à cette activité
-        // $groups = $activity->groups;
+        Gate::authorize('view', $activity);
 
-        // Retourne la vue avec les groupes
         return view('activities.show', compact('activity'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -81,7 +79,10 @@ class ActivityController extends Controller
     public function edit(string $id)
     {
         $activity = Activity::findOrFail($id);
-        $prices = Price::all(); // Récupérer tous les prix disponibles
+
+        Gate::authorize('update', $activity);
+
+        $prices = Price::all();
         return view('activities.edit', compact('activity', 'prices'));
     }
 
@@ -90,6 +91,10 @@ class ActivityController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $activity = Activity::findOrFail($id);
+
+        Gate::authorize('update', $activity);
+
         $request->validate([
             'price_id' => 'required|exists:prices,id',
             'title' => 'required|string|max:255',
@@ -98,9 +103,8 @@ class ActivityController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
-        $activity = Activity::findOrFail($id);
         $activity->update($request->all());
-    
+
         return redirect()->route('activities.index')->with('success', 'Activité mise à jour avec succès!');
     }
 
@@ -110,8 +114,13 @@ class ActivityController extends Controller
     public function destroy(string $id)
     {
         $activity = Activity::findOrFail($id);
+
+        Gate::authorize('delete', $activity);
+
         $activity->delete();
 
         return redirect()->route('activities.index')->with('success', 'Activité supprimée avec succès!');
     }
+
+    
 }
