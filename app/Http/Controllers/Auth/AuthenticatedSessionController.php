@@ -22,14 +22,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+public function store(LoginRequest $request)
+{
+    // Authentifie l'utilisateur
+    $request->authenticate();
 
-        $request->session()->regenerate();
+    // Régénère la session pour éviter les attaques de fixation de session
+    $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
-    }
+    // Récupère l'utilisateur authentifié
+    $user = Auth::user();
+
+    // Crée un token d'accès personnel pour l'utilisateur et le stocke en base de données
+    $user->createToken('auth_token')->plainTextToken;
+
+    // Redirige l'utilisateur vers le tableau de bord
+    return redirect()->route('dashboard');
+}
+
+    
 
     /**
      * Destroy an authenticated session.

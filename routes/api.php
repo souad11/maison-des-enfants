@@ -5,6 +5,13 @@ use App\Http\Controllers\Api\PartnerController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
+
+// Route pour récupérer les informations de l'utilisateur authentifié
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
 /**
  * Api Partenaires protégée avec sanctum 
  */
@@ -12,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function() {
     // GET request pour récupérer tous les partenaires
     Route::get('partners', [PartnerController::class, 'index']);
+
     // GET request pour récupérer un partenaire spécifique
     Route::get('partners/{partner}', [PartnerController::class, 'show']);
 

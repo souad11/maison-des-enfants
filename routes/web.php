@@ -106,5 +106,11 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+
+// Test Récupéation donné api protégé avec sanctum
+Route::get('/partner', function () {
+    return view('partner');
+});
+
 // Auth routes (en général pour l'enregistrement, la réinitialisation du mot de passe, etc.)
 require __DIR__.'/auth.php';

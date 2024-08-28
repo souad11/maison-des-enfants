@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('tutor', function (User $user) {
             return $user->role === 'tutor';
         });
+
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+
     }
 }

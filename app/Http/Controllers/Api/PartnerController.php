@@ -12,6 +12,7 @@ class PartnerController extends Controller
     public function index()
     {
         return PartnerResource::collection(Partner::all());
+        
     }
 
     public function show(Partner $partner)

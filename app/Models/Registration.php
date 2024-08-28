@@ -31,11 +31,5 @@ class Registration extends Model
         return $this->belongsTo(ActivityGroup::class);
     }
 
-    /**
-     * Get the payment associated with the registration.
-     */
-    public function payment()
-    {
-        return $this->hasOne(Payment::class);
-    }
+   
 }
