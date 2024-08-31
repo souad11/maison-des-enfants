@@ -75,7 +75,7 @@ class EducatorController extends Controller
                 'password' => Hash::make($password),
                 'login' => $login,
                 'role' => 'educator',
-                'langue' => $validatedData['langue'],
+                
             ]);
 
             $user->save();

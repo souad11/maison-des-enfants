@@ -21,15 +21,6 @@
             <input type="number" name="max_age" id="max_age" class="form-control" required>
         </div>
 
-        <div class="form-group">
-            <label for="capacity">Capacité</label>
-            <input type="number" name="capacity" id="capacity" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="available_space">Places Disponibles</label>
-            <input type="number" name="available_space" id="available_space" class="form-control" required>
-        </div>
 
         <button type="submit" class="btn btn-primary">Créer le Groupe</button>
     </form>

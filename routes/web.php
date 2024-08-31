@@ -8,6 +8,7 @@ use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
@@ -77,12 +78,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Route pour afficher le formulaire d'inscription
-Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activities.register');
-Route::post('registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+//Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activities.register');
+//Route::post('registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activity_group.register');
+
+Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+Route::get('/payment/success/{registration_id}', [RegistrationController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/payment/cancel', [RegistrationController::class, 'paymentCancel'])->name('payment.cancel');
 
 
 
-Route::get('/activitiesTemplate', [ActivityController::class, 'templateIndex'])->name('activities.template');
+
+Route::get('/activitiesTemplate', [ActivityGroupController::class, 'templateIndex'])->name('activities.template');
 // Route::get('/activity', [ActivityController::class, 'index'])->name('activities.index');
 
 Route::get('/equipe', [EducatorController::class, 'templateIndex'])->name('educators.template');
@@ -111,6 +119,7 @@ Route::get('/about', function () {
 Route::get('/partner', function () {
     return view('partner');
 });
+
 
 // Auth routes (en général pour l'enregistrement, la réinitialisation du mot de passe, etc.)
 require __DIR__.'/auth.php';

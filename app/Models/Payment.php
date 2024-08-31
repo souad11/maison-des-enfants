@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -10,13 +10,18 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'registration_id',
         'amount',
+        'currency',
         'status',
+        'stripe_payment_id',
     ];
 
-    /**
-     * Get the registration associated with the payment.
-     */
+
+    protected $table = 'payments';
+
+    public $timestamps = false;
+
     public function registration()
     {
         return $this->belongsTo(Registration::class);

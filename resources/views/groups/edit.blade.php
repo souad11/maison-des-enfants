@@ -35,20 +35,6 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="capacity">Capacité :</label>
-                    <input type="number" class="form-control" id="capacity" name="capacity" value="{{ old('capacity', $group->capacity) }}" required>
-                    @error('capacity')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="available_space">Places Disponibles :</label>
-                    <input type="number" class="form-control" id="available_space" name="available_space" value="{{ old('available_space', $group->available_space) }}" required>
-                    @error('available_space')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
                     <label for="activity_ids">Activités :</label>
                     <select multiple class="form-control" id="activity_ids" name="activity_ids[]">
                         @foreach ($activities as $activity)

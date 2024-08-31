@@ -12,6 +12,8 @@ class ActivityGroup extends Model
         'activity_id',
         'group_id',
         'educator_id', // Ajout de l'educator_id
+        'capacity',        // Ajouter la capacité
+        'available_space',
     ];
 
     public $timestamps = false;

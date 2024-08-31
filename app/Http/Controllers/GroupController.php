@@ -35,8 +35,6 @@ class GroupController extends Controller
             'title' => 'required|string|max:255',
             'min_age' => 'required|integer',
             'max_age' => 'required|integer',
-            'capacity' => 'required|integer',
-            'available_space' => 'required|integer',
         ]);
 
         // Création du groupe
@@ -44,8 +42,6 @@ class GroupController extends Controller
             'title',
             'min_age',
             'max_age',
-            'capacity',
-            'available_space'
         ]));
 
         return redirect()->route('groups.index')->with('success', 'Groupe créé avec succès.');
@@ -79,8 +75,6 @@ class GroupController extends Controller
             'title' => 'required|string|max:255',
             'min_age' => 'required|integer',
             'max_age' => 'required|integer',
-            'capacity' => 'required|integer',
-            'available_space' => 'required|integer',
         ]);
 
         $group = Group::findOrFail($id);
@@ -90,8 +84,6 @@ class GroupController extends Controller
             'title',
             'min_age',
             'max_age',
-            'capacity',
-            'available_space'
         ]));
 
         return redirect()->route('groups.index')->with('success', 'Groupe mis à jour avec succès.');

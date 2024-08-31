@@ -11,8 +11,6 @@
         <div class="card-body">
             <p><strong>Âge minimum :</strong> {{ $group->min_age }} ans</p>
             <p><strong>Âge maximum :</strong> {{ $group->max_age }} ans</p>
-            <p><strong>Capacité :</strong> {{ $group->capacity }} enfants</p>
-            <p><strong>Places disponibles :</strong> {{ $group->available_space }}</p>
         </div>
     </div>
 

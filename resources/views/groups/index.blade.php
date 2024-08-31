@@ -13,8 +13,6 @@
                 <th>Titre</th>
                 <th>Âge Minimum</th>
                 <th>Âge Maximum</th>
-                <th>Capacité</th>
-                <th>Places Disponibles</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,8 +23,7 @@
                     <td>{{ $group->title }}</td>
                     <td>{{ $group->min_age }}</td>
                     <td>{{ $group->max_age }}</td>
-                    <td>{{ $group->capacity }}</td>
-                    <td>{{ $group->available_space }}</td>
+                    
                     <td>
                         <a href="{{ route('groups.show', $group->id) }}" class="btn btn-info">Voir</a>
                         <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-warning">Éditer</a>

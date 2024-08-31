@@ -12,6 +12,8 @@
                 <th>Activité</th>
                 <th>Groupe</th>
                 <th>Éducateur</th>
+                <th>Capacité</th>
+                <th>Places Disponibles</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,6 +24,8 @@
                     <td>{{ $activityGroup->activity->title }}</td>
                     <td>{{ $activityGroup->group->title }} ({{ $activityGroup->group->min_age }}-{{ $activityGroup->group->max_age }} ans)</td>
                     <td>{{ $activityGroup->educator->user->firstname }} {{ $activityGroup->educator->user->lastname }}</td>
+                    <td>{{ $activityGroup->capacity }}</td>
+                    <td>{{ $activityGroup->available_space }}</td>
                     <td>
                         <!-- Bouton Modifier -->
                         <a href="{{ route('activity_groups.edit', $activityGroup->id) }}" class="btn btn-warning">Modifier</a>

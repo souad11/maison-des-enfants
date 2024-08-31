@@ -9,6 +9,7 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ActivityGroupController extends Controller
 {
@@ -24,6 +25,24 @@ class ActivityGroupController extends Controller
 
         return view('activity_groups.index', compact('activityGroups'));
     }
+
+    public function templateIndex()
+    {
+        $today = Carbon::today();
+        $activities = ActivityGroup::with(['activity', 'group'])
+            ->join('activities', 'activity_groups.activity_id', '=', 'activities.id')
+            ->join('groups', 'activity_groups.group_id', '=', 'groups.id')
+            ->whereDate('activities.start_date', '>=', $today)
+            ->select('activity_groups.*', 'activities.start_date', 'groups.title as group_name')
+            ->get();
+
+
+
+            //dd($activities);
+        // $activities = Activity::all();
+        return view('activities.template', compact('activities'));
+    }
+
 
 //     public function index()
 // {
@@ -44,7 +63,7 @@ class ActivityGroupController extends Controller
 
     public function showEducator() 
     {
-        // Autorisation basée sur la policy ou le gate
+        // Autorisation basée sur la policy
         Gate::authorize('viewForEducator', ActivityGroup::class);
 
         // Récupérer les groupes d'activités gérés par l'éducateur connecté
@@ -79,16 +98,21 @@ class ActivityGroupController extends Controller
             'activity_id' => 'required|exists:activities,id',
             'group_id' => 'required|exists:groups,id',
             'educator_id' => 'required|exists:educators,id',
+            'capacity' => 'required|integer|min:1',
+            'available_space' => 'required|integer|min:0|max:' . $request->input('capacity'),
         ]);
 
         ActivityGroup::create([
             'activity_id' => $request->activity_id,
             'group_id' => $request->group_id,
             'educator_id' => $request->educator_id,
+            'capacity' => $request->capacity,
+            'available_space' => $request->available_space,
         ]);
 
         return redirect()->route('activity_groups.index')->with('success', 'Association créée avec succès.');
     }
+
 
     public function showParticipants($activityGroupId)
     {
@@ -97,7 +121,7 @@ class ActivityGroupController extends Controller
         // Chargement de l'ActivityGroup avec les registrations et les enfants associés
         $activityGroup = ActivityGroup::with(['registrations.child'])->find($activityGroupId);
     
-        // Extraction des enfants à partir des registrations
+        // Extraction des enfants à partir des registrations (inscriptions)
         $children = $activityGroup->registrations->map(function ($registration) {
             return $registration->child;
         });
@@ -111,7 +135,6 @@ class ActivityGroupController extends Controller
         // Récupérer l'association ActivityGroup par son ID
         $activityGroup = ActivityGroup::findOrFail($id);
 
-        // Vérifier l'autorisation pour éditer cette association
         Gate::authorize('update', $activityGroup);
 
         // Récupérer les activités, groupes et éducateurs pour remplir le formulaire d'édition
@@ -128,7 +151,7 @@ class ActivityGroupController extends Controller
         // Récupérer l'association ActivityGroup par son ID
         $activityGroup = ActivityGroup::findOrFail($id);
 
-        // Vérifier l'autorisation pour mettre à jour cette association
+        
         Gate::authorize('update', $activityGroup);
 
         // Valider les données du formulaire
@@ -136,6 +159,8 @@ class ActivityGroupController extends Controller
             'activity_id' => 'required|exists:activities,id',
             'group_id' => 'required|exists:groups,id',
             'educator_id' => 'required|exists:educators,id',
+            'capacity' => 'required|integer|min:1',
+            'available_space' => 'required|integer|min:0|max:' . $request->input('capacity'),
         ]);
 
         // Mettre à jour l'association ActivityGroup
@@ -143,12 +168,13 @@ class ActivityGroupController extends Controller
             'activity_id' => $request->activity_id,
             'group_id' => $request->group_id,
             'educator_id' => $request->educator_id,
+            'capacity' => $request->capacity,
+            'available_space' => $request->available_space,
         ]);
 
         // Rediriger vers la liste des associations avec un message de succès
         return redirect()->route('activity_groups.index')->with('success', 'Association mise à jour avec succès.');
     }
-
         public function destroy($id)
     {
         // Récupérer l'association ActivityGroup par son ID

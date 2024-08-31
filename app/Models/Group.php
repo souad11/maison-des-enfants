@@ -15,8 +15,6 @@ class Group extends Model
         'title',
         'min_age',
         'max_age',
-        'capacity',
-        'available_space',
     ];
 
     protected $table = 'groups';

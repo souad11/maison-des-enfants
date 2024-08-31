@@ -17,24 +17,18 @@ class GroupSeeder extends Seeder
             'title' => 'Les fruits',
             'min_age' => 4,
             'max_age' => 6,
-            'capacity' => 15,
-            'available_space' => 15,
         ]);
 
         Group::create([
             'title' => 'Les fleurs',
             'min_age' => 7,
             'max_age' => 9,
-            'capacity' => 15,
-            'available_space' => 15,
         ]);
 
         Group::create([
-            'title' => 'les arbres',
+            'title' => 'les Arbres',
             'min_age' => 10,
             'max_age' => 12,
-            'capacity' => 15,
-            'available_space' => 15,
         ]);
     }
 }

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-5">
-<h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Nos Activités</h1>
+    <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Nos Activités</h1>
     
     <!-- Section for Weekly Activities -->
     <section class="mb-5">
@@ -23,20 +23,23 @@
         </div>
     @else
         <div class="row">
-            @foreach($activities as $activity)
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm">
+            @foreach($activities as $activityGroup)
+                <div class="col-md-4 mb-4">
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">{{ $activity->title }}</h5>
-                            <p class="card-text">{{ Str::limit($activity->description, 100) }}</p>
-                            <p class="text-muted">
-                                <strong>Date de début:</strong> {{ \Carbon\Carbon::parse($activity->start_date)->format('d/m/Y') }}<br>
-                                <strong>Date de fin:</strong> {{ \Carbon\Carbon::parse($activity->end_date)->format('d/m/Y') }}
+                            <h5 class="card-title">{{ $activityGroup->activity->title }}</h5>
+                            <p class="card-text">{{ $activityGroup->activity->description }}</p>
+                            <p class="card-text">
+                                Du {{ \Carbon\Carbon::parse($activityGroup->activity->start_date)->isoFormat('D MMM YYYY') }}
+                                au {{ \Carbon\Carbon::parse($activityGroup->activity->end_date)->isoFormat('D MMM YYYY') }}
                             </p>
+                            <p class="card-text">Groupe : {{ $activityGroup->group->title }} ({{ $activityGroup->group->min_age }} à {{ $activityGroup->group->max_age }} ans)</p>
+                            <p class="card-text">Capacité : {{ $activityGroup->capacity }}</p>
+                            <p class="card-text">Places Disponibles : {{ $activityGroup->available_space }}</p>
                         </div>
                         <div class="card-footer text-right">
                             @if (Auth::check() && Auth::user()->role == 'tutor')
-                                <a href="{{ route('activities.register', $activity->id) }}" class="btn btn-outline-primary btn-sm">Inscrire son enfant</a>
+                                <a href="{{ route('activity_group.register', $activityGroup->id) }}" class="btn btn-outline-primary btn-sm">Inscrire son enfant</a>
                             @else
                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">Connectez-vous pour inscrire votre enfant</a>
                             @endif

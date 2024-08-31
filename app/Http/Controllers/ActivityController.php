@@ -24,11 +24,11 @@ class ActivityController extends Controller
     /**
      * Display the activities for the public template.
      */
-    public function templateIndex()
-    {
-        $activities = Activity::all();
-        return view('activities.template', compact('activities'));
-    }
+    // public function templateIndex()
+    // {
+    //     $activities = Activity::all();
+    //     return view('activities.template', compact('activities'));
+    // }
 
     /**
      * Show the form for creating a new resource.
