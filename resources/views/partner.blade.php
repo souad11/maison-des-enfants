@@ -11,9 +11,10 @@
     <div id="partners-list">
         <p>Loading data...</p>
     </div>
+    <p>Cette page permet de tester mon api protégé avec sanctum pour afficher les partenaires.</p>
 
     <script>
-        const token = "4|EyhN8IbgddDWXw9Nhf9OkkfZujxtpVn6q9iTOYGofb1a116e"; // Votre token réel
+        const token = "4|EyhN8IbgddDWXw9Nhf9OkkfZujxtpVn6q9iTOYGofb1a116e"; 
 
         fetch('http://localhost:8000/api/partners', {  // URL de l'API
             method: 'GET',
@@ -29,7 +30,7 @@
             return response.json();
         })
         .then(data => {
-            // Assurez-vous que data est bien un tableau ou un objet contenant un tableau
+            
             const partners = Array.isArray(data) ? data : (data.data || []);
             displayPartnerNames(partners);
         })
@@ -41,7 +42,7 @@
         // Fonction pour afficher les noms des partenaires dans le DOM
         function displayPartnerNames(partners) {
             const partnersList = document.getElementById('partners-list');
-            partnersList.innerHTML = ''; // Vide le contenu avant d'ajouter les nouveaux éléments
+            partnersList.innerHTML = ''; 
 
             if (partners.length > 0) {
                 const ul = document.createElement('ul');
