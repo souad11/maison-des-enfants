@@ -12,10 +12,33 @@
         <p class="lead">
             Organisées pendant les semaines de congé scolaire, ces activités visent à engager les enfants dans des expériences enrichissantes et amusantes qui complètent leur éducation scolaire régulière. Chaque semaine est thématique et conçue pour stimuler la curiosité et l'exploration. Nos programmes hebdomadaires sont variés, allant des ateliers créatifs aux sorties éducatives, en passant par des activités sportives et des découvertes scientifiques.
         </p>
-        <p>
-            Ces sessions sont spécialement préparées pour maintenir les enfants actifs et impliqués, en leur proposant des défis adaptés à leur âge et en encourageant le développement de nouvelles compétences. C’est une occasion parfaite pour les enfants de faire des rencontres enrichissantes, de développer leur autonomie et de renforcer leur confiance en eux dans un cadre sécurisé et stimulant.
-        </p>
+        
     </section>
+
+    <!-- Section for Yearly Activities -->
+    <section class="mb-5">
+        <h2 class="text-primary">Activités à l'année</h2>
+        <p class="lead">
+            Nos activités à l'année sont conçues pour offrir une continuité dans l'apprentissage et le développement des enfants tout au long de l'année scolaire. Ces programmes permettent aux enfants de s'immerger plus profondément dans leurs domaines d'intérêt tout en bénéficiant d'un encadrement régulier et structuré.
+        </p>
+        
+    </section>
+
+    <div class="mb-5 text-center">
+    <form action="{{ route('activities.filter') }}" method="GET" class="form-inline justify-content-center">
+        <div class="input-group" style="max-width: 400px;">
+            <label for="filter" class="input-group-text">Filtrer par :</label>
+            <select name="filter" id="filter" class="form-select">
+                <option value="">-- Tous les types --</option>
+                <option value="annuel" {{ request('filter') == 'annuel' ? 'selected' : '' }}>Activités à l'année</option>
+                <option value="hebdomadaire" {{ request('filter') == 'hebdomadaire' ? 'selected' : '' }}>Activités hebdomadaires</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+        </div>
+    </form>
+</div>
+
+
 
     @if($activities->isEmpty())
         <div class="alert alert-info text-center">

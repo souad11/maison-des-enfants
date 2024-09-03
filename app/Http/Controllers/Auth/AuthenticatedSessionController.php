@@ -38,6 +38,18 @@ public function store(LoginRequest $request)
 
     // Redirige l'utilisateur vers le tableau de bord
     return redirect()->route('dashboard');
+
+
+    // $request->authenticate();
+    //     $request->session()->regenerate();
+    
+    //     $user = Auth::user();
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+    
+    //     return response()->json([
+    //         'user' => $user,
+    //         'token' => $token,
+    //     ]);
 }
 
     

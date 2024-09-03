@@ -13,7 +13,7 @@ class FeedbackPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'educator';
 
     }
 
@@ -22,7 +22,7 @@ class FeedbackPolicy
      */
     public function view(User $user, Feedback $feedback): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'educator';
 
     }
 
@@ -31,7 +31,7 @@ class FeedbackPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'educator';
 
     }
 
@@ -40,7 +40,7 @@ class FeedbackPolicy
      */
     public function update(User $user, Feedback $feedback): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'educator';
 
     }
 
@@ -49,7 +49,7 @@ class FeedbackPolicy
      */
     public function delete(User $user, Feedback $feedback): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'educator';
 
     }
 

@@ -13,7 +13,7 @@ class Activity extends Model
         'price_id',
         'title',
         'description',
-        // 'type',
+        'type',
         'start_date',
         'end_date',
     ];

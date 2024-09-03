@@ -12,6 +12,10 @@
         <div class="card-header bg-primary text-white">
             <h3 class="card-title">{{ $activity->title }}</h3>
         </div>
+        <div class="form-group">
+    <label for="type">Type : </label>
+    <p>{{ $activity->type == 'annuel' ? 'Activités à l\'année' : 'Activités hebdomadaires' }}</p>
+</div>
         <div class="card-body">
             <p class="card-text"><strong>Description:</strong> {{ $activity->description }}</p>
             <p class="card-text">

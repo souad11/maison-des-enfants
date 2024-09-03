@@ -26,6 +26,19 @@
         </div>
 
         <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required>
+            <option value="annuel" {{ $activity->type == 'annuel' ? 'selected' : '' }}>Activités à l'année</option>
+            <option value="hebdomadaire" {{ $activity->type == 'hebdomadaire' ? 'selected' : '' }}>Activités hebdomadaires</option>
+        </select>
+        @error('type')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+        </div>
+
+        <div class="form-group">
             <label for="description">Description:</label>
             <textarea class="form-control" id="description" name="description" required>{{ $activity->description }}</textarea>
         </div>

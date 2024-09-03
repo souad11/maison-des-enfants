@@ -11,6 +11,7 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Type</th>
                 <th>Date de début</th>
                 <th>Date de fin</th>
                 <th>Actions</th>
@@ -21,6 +22,7 @@
                 <tr>
                     <td>{{ $activity->title }}</td>
                     <td>{{ $activity->description }}</td>
+                    <td>{{ $activity->type == 'annuel' ? 'Activités à l\'année' : 'Activités hebdomadaires' }}</td>
                     <td>{{ $activity->start_date }}</td>
                     <td>{{ $activity->end_date }}</td>
                     <td>

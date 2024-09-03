@@ -7,6 +7,7 @@ use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityGroup;
 
 class ActivityController extends Controller
 {
@@ -52,6 +53,7 @@ class ActivityController extends Controller
             'price_id' => 'required|exists:prices,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'type' => 'required|string|in:annuel,hebdomadaire', // Validation du champ type
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
@@ -99,6 +101,7 @@ class ActivityController extends Controller
             'price_id' => 'required|exists:prices,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'type' => 'required|string|in:annuel,hebdomadaire', // Validation du champ type
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
@@ -122,5 +125,23 @@ class ActivityController extends Controller
         return redirect()->route('activities.index')->with('success', 'Activité supprimée avec succès!');
     }
 
+
+        public function filterActivities(Request $request)
+    {
+        $filter = $request->input('filter');
+
+        $activitiesQuery = ActivityGroup::with('activity', 'group');
+
+        // Filtrer par type d'activité
+        if ($filter) {
+            $activitiesQuery->whereHas('activity', function($query) use ($filter) {
+                $query->where('type', $filter);
+            });
+        }
+
+        $activities = $activitiesQuery->get();
+
+        return view('activities.template', compact('activities'));
+    }
     
 }

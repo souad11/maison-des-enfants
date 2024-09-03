@@ -49,6 +49,15 @@ class RegistrationController extends Controller
         $group = $activityGroup->group;
         $child = Child::findOrFail($validated['child_id']);
 
+        // Vérifier si l'enfant est déjà inscrit à cette activité
+        $existingRegistration = Registration::where('activity_group_id', $validated['activity_group_id'])
+        ->where('child_id', $validated['child_id'])
+        ->first();
+
+        if ($existingRegistration) {
+            return redirect()->back()->with('error', 'Cet enfant est déjà inscrit à cette activité.');
+        }
+
         // Vérifier la disponibilité des places
         if ($activityGroup->available_space <= 0) {
             return redirect()->back()->with('error', 'Aucune place disponible pour cette activité.');
@@ -73,6 +82,7 @@ class RegistrationController extends Controller
 
         // Configurer Stripe
         Stripe::setApiKey(env('STRIPE_SECRET'));
+        //dd(env('STRIPE_SECRET'));
 
         // Créer une session de paiement Stripe
         $session = StripeSession::create([
@@ -88,7 +98,7 @@ class RegistrationController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('payment.success', ['registration_id' => $registration->id]),
+            'success_url' => route('payment.success', ['registration_id' => $registration->id]) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('payment.cancel'),
         ]);
 
@@ -108,25 +118,36 @@ class RegistrationController extends Controller
     }
 
     public function paymentSuccess(Request $request, $registration_id)
-    {
-        // Récupérer l'inscription
-        $registration = Registration::findOrFail($registration_id);
+{
+    // Récupérer l'inscription
+    $registration = Registration::findOrFail($registration_id);
 
-        // Mettre à jour l'inscription pour marquer comme payée
-        $registration->update(['status' => 'paid']);
+    // Mettre à jour l'inscription pour marquer comme payée
+    $registration->update(['status' => 'paid']);
 
-        // Mettre à jour l'enregistrement de paiement
-        $payment = Payment::where('registration_id', $registration_id)->first();
-        dd($payment);
-        if ($payment) {
-            $payment->update([
-                'status' => 'paid',
-                'stripe_payment_id' => $request->get('session_id'), 
-            ]);
-        }
+    // Récupérer l'enregistrement de paiement associé à cette inscription
+    $payment = Payment::where('registration_id', $registration_id)->first();
 
-        return redirect()->route('dashboard')->with('success', 'Paiement réussi et inscription confirmée.');
+    // Récupérer le session_id de la requête
+    $stripeSessionId = $request->get('session_id');
+
+    if (!$stripeSessionId) {
+        return redirect()->route('dashboard')->with('error', 'Session ID manquant pour le paiement.');
     }
+
+    if ($payment) {
+        // Mettre à jour l'enregistrement de paiement avec le session_id
+        $payment->update([
+            'status' => 'paid',
+            'stripe_payment_id' => $stripeSessionId, 
+        ]);
+    } else {
+        return redirect()->route('dashboard')->with('error', 'Paiement non trouvé pour cette inscription.');
+    }
+
+    // Rediriger l'utilisateur avec un message de succès
+    return redirect()->route('dashboard')->with('success', 'Paiement réussi et inscription confirmée.');
+}
 
     public function paymentCancel()
     {

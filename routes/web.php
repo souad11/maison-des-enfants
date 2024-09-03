@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
@@ -41,7 +41,7 @@ Route::resource('activity_groups', ActivityGroupController::class);
 
 Route::get('/activity-group/{id}/participants', [ActivityGroupController::class, 'showParticipants'])->name('activity-groups.participants');
 
-
+Route::get('/activities/filter', [ActivityController::class, 'filterActivities'])->name('activities.filter');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('activities', ActivityController::class);

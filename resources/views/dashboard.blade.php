@@ -6,6 +6,18 @@
 <div class="container-fluid">
     <h1>Bienvenue, {{ Auth::user()->firstname }}!</h1>
 
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Événements à Venir</h5>

@@ -39,6 +39,20 @@
                 </div>
             @enderror
         </div>
+         <!-- Ajout du champ Type -->
+         <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required>
+                <option value="">-- Sélectionnez le type --</option>
+                <option value="annuel" {{ old('type') == 'annuel' ? 'selected' : '' }}>Activités à l'année</option>
+                <option value="hebdomadaire" {{ old('type') == 'hebdomadaire' ? 'selected' : '' }}>Activités hebdomadaires</option>
+            </select>
+            @error('type')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
         <div class="form-group">
             <label for="title">Titre</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
