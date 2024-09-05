@@ -17,10 +17,12 @@ class HomeController extends Controller
                                 ->take(3)
                                 ->get();
 
-        // Récupérer les opinions des parents
-        $parentOpinions = Opinion::orderBy('created_at', 'desc')
-                                 ->take(3) 
-                                 ->get();
+
+        // Récupère uniquement les avis approuvés
+        $parentOpinions = Opinion::where('is_approved', true)
+        ->orderBy('created_at', 'desc')
+        ->take(3) 
+        ->get();
 
         // Passer les données à la vue home
         return view('home', compact('upcomingEvents', 'parentOpinions'));

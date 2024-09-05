@@ -140,31 +140,32 @@
     <!-- Upcoming Events End -->
 
 
-        <!-- Opinions des parents Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h1 class="mb-3">Avis des Parents</h1>
-                <p>Découvrez ce que les parents disent de nos activités et de l'impact positif qu'elles ont sur le développement de leurs enfants.</p>
-            </div>
-            <div class="row g-4">
-                @forelse($parentOpinions as $opinion)
-                    <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="testimonial-item bg-light rounded p-4">
-                            <div class="mb-3">
-                                <h5 class="mb-1">{{ $opinion->tutor->user->firstname }} {{ $opinion->tutor->user->lastname }}</h5>
-                                <small>Posté le {{ \Carbon\Carbon::parse($opinion->date_posted)->format('d M Y H:i') }}</small>
-                            </div>
-                            <p class="mb-0">{{ $opinion->texte }}</p>
+   <!-- Opinions des parents Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3">Avis des Parents</h1>
+            <p>Découvrez ce que les parents disent de nos activités et de l'impact positif qu'elles ont sur le développement de leurs enfants.</p>
+        </div>
+        <div class="row g-4">
+            @forelse($parentOpinions as $opinion)
+                <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="testimonial-item bg-light rounded p-4">
+                        <div class="mb-3">
+                            <h5 class="mb-1">{{ $opinion->tutor->user->firstname }} {{ $opinion->tutor->user->lastname }}</h5>
+                            <small>Posté le {{ \Carbon\Carbon::parse($opinion->created_at)->format('d M Y H:i') }}</small>
                         </div>
+                        <p class="mb-0">{{ $opinion->texte }}</p>
                     </div>
-                @empty
-                    <p class="text-center">Aucun avis pour le moment.</p>
-                @endforelse
-            </div>
+                </div>
+            @empty
+                <p class="text-center">Aucun avis pour le moment.</p>
+            @endforelse
         </div>
     </div>
-    <!-- Opinions des parents End -->
+</div>
+<!-- Opinions des parents End -->
+
 
 
 @endsection

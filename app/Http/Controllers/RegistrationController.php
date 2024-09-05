@@ -153,4 +153,13 @@ class RegistrationController extends Controller
     {
         return redirect()->route('dashboard')->with('error', 'Le paiement a été annulé.');
     }
+
+    public function index()
+    {
+        
+        // Récupérez toutes les inscriptions
+        $registrations = Registration::all();
+
+        return view('registrations.index', compact('registrations'));
+    }
 }

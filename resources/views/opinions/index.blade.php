@@ -7,6 +7,12 @@
     <h1>Liste des Opinions</h1>
 @stop
 
+@if(session('status'))
+    <div class="alert alert-info">
+        {{ session('status') }}
+    </div>
+@endif
+
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -22,32 +28,39 @@
             @if ($opinions->isEmpty())
                 <p>Aucune opinion trouvée.</p>
             @else
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Texte</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($opinions as $opinion)
-                            <tr>
-                                <td>{{ $opinion->id }}</td>
-                                <td>{{ $opinion->texte }}</td>
-                                <td>
-                                    <a href="{{ route('opinions.show', $opinion->id) }}" class="btn btn-info btn-sm">Voir</a>
-                                    <a href="{{ route('opinions.edit', $opinion->id) }}" class="btn btn-warning btn-sm">Éditer</a>
-                                    <form action="{{ route('opinions.destroy', $opinion->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette opinion ?')">Supprimer</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Texte</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($opinions as $opinion)
+            <tr>
+                <td>{{ $opinion->id }}</td>
+                <td>{{ $opinion->texte }}</td>
+                <td>
+                    <span class="badge {{ $opinion->is_approved ? 'bg-success' : 'bg-danger' }}">
+                        {{ $opinion->is_approved ? 'Approuvé' : 'Rejeté' }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ route('opinions.show', $opinion->id) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ route('opinions.edit', $opinion->id) }}" class="btn btn-warning btn-sm">Éditer</a>
+                    <form action="{{ route('opinions.destroy', $opinion->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette opinion ?')">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
             @endif
         </div>
     </div>

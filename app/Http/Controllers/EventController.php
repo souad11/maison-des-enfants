@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
 
 class EventController extends Controller
 {
@@ -13,6 +15,9 @@ class EventController extends Controller
      */
     public function index()
     {
+
+        Gate::authorize('viewAny', Event::class);
+
         $events = Event::where('event_date', '>', Carbon::now())
                         ->orderBy('event_date', 'asc')
                         ->take(3)
@@ -35,6 +40,8 @@ class EventController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Event::class);
+
         return view('events.create');
     }
 
@@ -52,6 +59,9 @@ class EventController extends Controller
         ]);
 
         $data = $request->all();
+
+        Gate::authorize('create', Event::class);
+
 
         // Gestion du téléchargement de la photo
         if ($request->hasFile('photo')) {
@@ -71,6 +81,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        Gate::authorize('view', Event::class);
+
         return view('events.show', compact('event'));
     }
 
@@ -79,6 +91,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+        Gate::authorize('update', Event::class);
+
         return view('events.edit', compact('event'));
     }
 
@@ -96,6 +110,8 @@ class EventController extends Controller
         ]);
 
         $data = $request->all();
+        Gate::authorize('update', Event::class);
+
 
         // Gestion du téléchargement de la photo
         if ($request->hasFile('photo')) {
@@ -120,6 +136,9 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+
+        Gate::authorize('delete', Event::class);
+
         // Supprimer l'image associée si elle existe
         if ($event->photo && \Storage::exists('public/events/' . $event->photo)) {
             \Storage::delete('public/events/' . $event->photo);

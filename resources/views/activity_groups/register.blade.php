@@ -32,7 +32,7 @@
 @endif
 
 
-    <form action="{{ route('registrations.store') }}" method="POST">
+    <form action="{{ route('registration.store') }}" method="POST">
         @csrf
         <input type="hidden" name="activity_group_id" value="{{ $activityGroup->id }}">
         

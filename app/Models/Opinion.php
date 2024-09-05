@@ -9,10 +9,7 @@ class Opinion extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'tutor_id',
-        'texte',
-    ];
+    protected $fillable = ['tutor_id', 'texte', 'is_approved'];
 
     protected $table = 'opinions';
 

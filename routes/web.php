@@ -84,16 +84,30 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+// Routes protégées par authentification
+Route::middleware(['auth'])->group(function () {
+    // Route pour afficher les avis pour l'admin
+    Route::get('/admin/opinions', [OpinionController::class, 'indexAdmin'])->name('opinions.indexAdmin');
+
+   // Route pour approuver une opinion
+Route::post('admin/opinions/{opinion}/approve', [OpinionController::class, 'approve'])->name('admin.opinions.approve');
+
+// Route pour rejeter une opinion
+Route::post('admin/opinions/{opinion}/reject', [OpinionController::class, 'reject'])->name('admin.opinions.reject');
+});
+
+
 // Route pour afficher le formulaire d'inscription
 //Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activities.register');
 //Route::post('registrations', [RegistrationController::class, 'store'])->name('registrations.store');
 
-Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activity_group.register');
 
-Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+Route::get('activities/{id}/register', [RegistrationController::class, 'register'])->name('activity_group.register');
+Route::post('/registration', [RegistrationController::class, 'store'])->name('registration.store');
 Route::get('/payment/success/{registration_id}', [RegistrationController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/payment/cancel', [RegistrationController::class, 'paymentCancel'])->name('payment.cancel');
 
+Route::get('/registrations', [RegistrationController::class, 'index'])->name('registrations.index');
 
 
 

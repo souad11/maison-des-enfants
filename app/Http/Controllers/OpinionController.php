@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Opinion;
 use App\Models\Tutor;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth; // Importation correcte de Auth
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class OpinionController extends Controller
 {
@@ -17,6 +19,9 @@ class OpinionController extends Controller
     {
         // Récupère l'utilisateur connecté
         $user = Auth::user();
+
+        Gate::authorize('viewAny', Opinion::class);
+
     
         // Assure-toi que l'utilisateur a un tutor associé
         if (!$user->tutor) {
@@ -40,6 +45,8 @@ class OpinionController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Opinion::class);
+
         return view('opinions.create');
     }
 
@@ -53,6 +60,8 @@ class OpinionController extends Controller
         ]);
 
         $tutorId = Auth::user()->tutor->id; 
+
+        Gate::authorize('create', Opinion::class);
 
        // dd($tutorId);
         Opinion::create([
@@ -70,6 +79,8 @@ class OpinionController extends Controller
     public function show(Opinion $opinion)
     {
 
+        Gate::authorize('view', $opinion);
+
         return view('opinions.show', compact('opinion'));
     }
 
@@ -78,6 +89,8 @@ class OpinionController extends Controller
      */
     public function edit(Opinion $opinion)
     {
+
+        Gate::authorize('update', $opinion);
 
         return view('opinions.edit', compact('opinion'));
     }
@@ -92,6 +105,8 @@ class OpinionController extends Controller
             'texte' => 'required|string',
         ]);
 
+        Gate::authorize('update', $opinion);
+
         $opinion->update([
             'texte' => $request->input('texte'),
         ]);
@@ -104,9 +119,54 @@ class OpinionController extends Controller
      */
     public function destroy(Opinion $opinion)
     {
+        Gate::authorize('delete', $opinion);
+
         $opinion->delete();
 
         return redirect()->route('opinions.index')->with('success', 'Opinion supprimée avec succès.');
+    }
+
+    public function indexAdmin()
+    {
+        Gate::authorize('viewAdmin', Opinion::class);
+
+        // Récupérer toutes les opinions
+        $opinions = Opinion::orderBy('created_at', 'desc')->get();
+
+        // Retourner la vue avec les avis
+        return view('opinions.indexAdmin', compact('opinions'));
+    }
+
+    public function approve(Opinion $opinion)
+    {
+
+        Gate::authorize('approve', Auth::user());
+
+        $opinion->update(['is_approved' => true]);
+
+        // Ajouter un message de session pour notifier le tuteur
+        $tutor = $opinion->tutor;
+        if ($tutor && $tutor->user) {
+            $tutor->user->session()->flash('status', 'Votre avis a été approuvé.');
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Opinion approuvée avec succès.');
+    }
+
+    public function reject(Opinion $opinion)
+    {
+
+        Gate::authorize('reject', Auth::user());
+
+        $opinion->update(['is_approved' => false]);
+
+        // Ajouter un message de session pour notifier le tuteur
+        $tutor = $opinion->tutor;
+        if ($tutor && $tutor->user) {
+            $tutor->user->session()->flash('status', 'Votre avis a été rejeté.');
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Opinion rejetée.');
     }
 }
 

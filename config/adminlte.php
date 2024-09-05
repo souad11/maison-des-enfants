@@ -360,6 +360,20 @@ return [
             'can' => 'admin'
         ],
         [
+            'text' => 'Inscriptions',
+            'url'  => '/registrations', 
+            'icon' => 'fas fa-list-alt', 
+            'can'  => 'admin', 
+        ],
+        [
+            'text' => 'Gestion des avis',
+            'url'  => '/admin/opinions', 
+            'icon' => 'fas fa-star', // Changement de l'icône
+            'can'  => 'admin', 
+        ],
+        
+        
+        [
             'text' => 'Activity Groups',
             'url'  => '/showEducator',
             'icon' => 'fas fa-fw fa-layer-group',
