@@ -366,6 +366,12 @@ return [
             'can'  => 'educator',
         ],
         [
+            'text' => 'Événements',
+            'url'  => '/events', 
+            'icon' => 'fas fa-calendar-alt', 
+            'can'  => 'admin', 
+        ],
+        [
             'text' => 'Plannings',
             'url' => '/schedules',
             'icon' => 'fas fa-fw fa-calendar-check', // Icône représentant les plannings
@@ -393,6 +399,13 @@ return [
             'text' => 'Inscriptions Enfants',
             'url'  => '/tutor/registrations',
             'icon' => 'fas fa-fw fa-folder', // Icône représentant un dossier
+            'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
+        ],
+
+        [
+            'text' => 'Mes Opinions',
+            'url'  => '/opinions',
+            'icon' => 'fas fa-fw fa-comments', // Icône représentant des commentaires
             'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
         ],
         [

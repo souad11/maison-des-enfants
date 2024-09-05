@@ -5,8 +5,11 @@ use App\Http\Controllers\ActivityGroupController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducatorController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OpinionController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PriceController;
@@ -22,9 +25,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [EventController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,6 +54,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('schedules', ScheduleController::class);
     Route::resource('feedbacks', FeedbackController::class);
     Route::resource('partners', PartnerController::class);
+    Route::resource('events', EventController::class);
+    Route::resource('opinions', OpinionController::class);
+
+
 
     Route::get('/feedbacks/children/{activity_group_id}', [FeedbackController::class, 'children'])->name('feedbacks.children');
 
@@ -96,9 +103,13 @@ Route::get('/activitiesTemplate', [ActivityGroupController::class, 'templateInde
 Route::get('/equipe', [EducatorController::class, 'templateIndex'])->name('educators.template');
 Route::get('/showEducator', [ActivityGroupController::class, 'showEducator'])->name('activityGroups.showEducator');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->name('home');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
 
 Route::get('/contact', function () {
     return view('contact');

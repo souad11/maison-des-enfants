@@ -107,44 +107,64 @@
         <!-- Facilities End -->
 
 
-        <div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-3">Avis des Parents</h1>
-            <p>Découvrez ce que les parents disent de nos activités et de l'impact positif qu'elles ont sur le développement de leurs enfants.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item bg-light rounded p-4">
-                    <div class="mb-3">
-                        <h5 class="mb-1">Marie Dupont</h5>
-                        <small>Parent</small>
-                    </div>
-                    <p class="mb-0">"Les activités proposées sont fantastiques et mon enfant les adore. Chaque jour, il apprend quelque chose de nouveau."</p>
-                </div>
+        <!-- Upcoming Events Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3">Événements à Venir</h1>
+                <p>Ne manquez pas nos prochains événements pour vos enfants.</p>
             </div>
-            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="testimonial-item bg-light rounded p-4">
-                    <div class="mb-3">
-                        <h5 class="mb-1">Jean Martin</h5>
-                        <small>Parent</small>
+            <div class="row g-4">
+                @forelse($upcomingEvents as $event)
+                <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="event-item bg-light rounded p-4">
+                        @if($event->photo)
+                            <div class="mb-3 text-center">
+                                <img src="{{ asset('storage/public/events/' . $event->photo) }}" alt="{{ $event->title }}" class="img-fluid rounded">
+                            </div>
+                        @endif
+                        <h5 class="mb-1">{{ $event->title }}</h5>
+                        <small>{{ \Carbon\Carbon::parse($event->event_date)->format('d M Y H:i') }}</small>
+                        <p class="mb-0">{{ $event->description }}</p>
                     </div>
-                    <p class="mb-0">"Un excellent programme qui aide les enfants à se développer tant sur le plan académique que personnel. Je recommande vivement."</p>
                 </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="testimonial-item bg-light rounded p-4">
-                    <div class="mb-3">
-                        <h5 class="mb-1">Sophie Laurent</h5>
-                        <small>Parent</small>
+
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">Aucun événement à venir pour le moment.</p>
                     </div>
-                    <p class="mb-0">"Les enseignants et le personnel sont très professionnels. Mon enfant s'est épanoui grâce aux activités variées et enrichissantes."</p>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>
-</div>
+    <!-- Upcoming Events End -->
 
+
+        <!-- Opinions des parents Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3">Avis des Parents</h1>
+                <p>Découvrez ce que les parents disent de nos activités et de l'impact positif qu'elles ont sur le développement de leurs enfants.</p>
+            </div>
+            <div class="row g-4">
+                @forelse($parentOpinions as $opinion)
+                    <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="testimonial-item bg-light rounded p-4">
+                            <div class="mb-3">
+                                <h5 class="mb-1">{{ $opinion->tutor->user->firstname }} {{ $opinion->tutor->user->lastname }}</h5>
+                                <small>Posté le {{ \Carbon\Carbon::parse($opinion->date_posted)->format('d M Y H:i') }}</small>
+                            </div>
+                            <p class="mb-0">{{ $opinion->texte }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <p class="text-center">Aucun avis pour le moment.</p>
+                @endforelse
+            </div>
+        </div>
+    </div>
+    <!-- Opinions des parents End -->
 
 
 @endsection

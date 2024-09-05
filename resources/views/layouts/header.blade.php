@@ -18,13 +18,9 @@
                     <a href="{{ url('/about') }}" class="nav-item nav-link">A propos</a>
                     <a href="{{ url('/partnersTemplate') }}" class="nav-item nav-link">Nos partenaires</a>
                     <a href="{{ url('/equipe') }}" class="nav-item nav-link">Notre équipe</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nos activités</a>
-                        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="#" class="dropdown-item">Activités à l'année</a>
-                            <a href="{{ url('/activitiesTemplate') }}" class="dropdown-item">Activités hebdomadaires</a>
-                        </div>
-                    </div>
+                        <a href="{{ url('/activitiesTemplate') }}" class="nav-item nav-link" >Nos activités</a>
+                        
+                   
                     <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="header_top_right">

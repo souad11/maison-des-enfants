@@ -4,7 +4,6 @@
 @section('content')
 <div class="container">
     <h1>Inscriptions des Enfants</h1>
-    <h1>A FAIRE </h1>
     @if($children->isEmpty())
         <div class="alert alert-info">
             Vous n'avez aucun enfant inscrit à des activités.

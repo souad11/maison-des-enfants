@@ -10,66 +10,46 @@
         </div>
     @else
         @foreach($children as $child)
-            <h2>{{ $child->firstname }} {{ $child->lastname }}</h2>
-
-            @if($child->registrations->isEmpty())
-                <div class="alert alert-warning">
-                    Aucun planning disponible pour cet enfant.
+            <div class="card mb-3">
+                <div class="card-header text-blue">
+                    <h2 class="mb-0">{{ $child->firstname }} {{ $child->lastname }}</h2>
                 </div>
-            @else
-                @foreach($child->registrations as $registration)
-                    @php
-                        $activityGroup = $registration->activityGroup;
-                    @endphp
-                    <h3>{{ $activityGroup->activity->title }} - {{ $activityGroup->group->title }}</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Jour</th>
-                                <th>Horaire</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if($activityGroup->schedule->monday)
-                                <tr>
-                                    <td>Lundi</td>
-                                    <td>{{ $activityGroup->schedule->monday }}</td>
-                                </tr>
-                            @endif
-                            @if($activityGroup->schedule->tuesday)
-                                <tr>
-                                    <td>Mardi</td>
-                                    <td>{{ $activityGroup->schedule->tuesday }}</td>
-                                </tr>
-                            @endif
-                            @if($activityGroup->schedule->wednesday)
-                                <tr>
-                                    <td>Mercredi</td>
-                                    <td>{{ $activityGroup->schedule->wednesday }}</td>
-                                </tr>
-                            @endif
-                            @if($activityGroup->schedule->thursday)
-                                <tr>
-                                    <td>Jeudi</td>
-                                    <td>{{ $activityGroup->schedule->thursday }}</td>
-                                </tr>
-                            @endif
-                            @if($activityGroup->schedule->friday)
-                                <tr>
-                                    <td>Vendredi</td>
-                                    <td>{{ $activityGroup->schedule->friday }}</td>
-                                </tr>
-                            @endif
-                            @if($activityGroup->schedule->saturday)
-                                <tr>
-                                    <td>Samedi</td>
-                                    <td>{{ $activityGroup->schedule->saturday }}</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                @endforeach
-            @endif
+                <div class="card-body">
+                    @if($child->registrations->isEmpty())
+                        <div class="alert alert-warning">
+                            Aucun planning disponible pour cet enfant.
+                        </div>
+                    @else
+                        @foreach($child->registrations->unique('activity_group_id') as $registration)
+                            @php
+                                $activityGroup = $registration->activityGroup;
+                                $schedule = $activityGroup->schedule;
+                            @endphp
+                            <div class="mb-4">
+                                <h4 class="font-weight-bold">{{ $activityGroup->activity->title }} - {{ $activityGroup->group->title }}</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Jour</th>
+                                            <th>Horaire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(['monday' => 'Lundi', 'tuesday' => 'Mardi', 'wednesday' => 'Mercredi', 'thursday' => 'Jeudi', 'friday' => 'Vendredi', 'saturday' => 'Samedi'] as $day => $dayName)
+                                            @if($schedule->$day)
+                                                <tr>
+                                                    <td>{{ $dayName }}</td>
+                                                    <td>{{ $schedule->$day }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
         @endforeach
     @endif
 </div>

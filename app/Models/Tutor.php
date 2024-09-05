@@ -38,4 +38,9 @@ class Tutor extends Model
         return $this->hasMany(Child::class, 'tutor_id');
     }
 
+
+    public function opinions()
+    {
+        return $this->hasMany(Opinion::class);
+    }
 }
