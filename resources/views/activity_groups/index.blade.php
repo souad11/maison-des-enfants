@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Liste des Associations Activité-Groupe</h1>
-    <a href="{{ route('activity_groups.create') }}" class="btn btn-primary mb-3">Créer une Nouvelle Association</a>
+    <h1>Liste des Stages Activité-Groupe</h1>
+    <a href="{{ route('activity_groups.create') }}" class="btn btn-primary mb-3">Créer une Nouveau Stage</a>
 
     <table class="table">
         <thead>

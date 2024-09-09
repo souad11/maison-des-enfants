@@ -78,7 +78,7 @@ class ActivityGroupController extends Controller
     /**
      * Affiche le formulaire de création d'une nouvelle association Activité-Groupe.
      */
-    public function create()
+    public function create( )
     {
         Gate::authorize('create', ActivityGroup::class);
 

@@ -9,7 +9,7 @@ class AddIsApprovedToOpinionsTable extends Migration
     public function up()
     {
         Schema::table('opinions', function (Blueprint $table) {
-            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_approved')->nullable()->default(null);
         });
     }
 

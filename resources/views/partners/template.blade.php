@@ -6,6 +6,10 @@
 <div class="container mt-5">
     <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Nos Partenaires</h1>
 
+    <!-- Introduction text -->
+    <p class="lead text-center mb-5">
+        Nous collaborons avec des partenaires de confiance qui partagent nos valeurs et notre engagement envers l'éducation et le développement des enfants. Ensemble, nous offrons une variété de ressources et de services pour enrichir l'expérience des enfants et de leurs familles.
+    </p>
     @if($partners->isEmpty())
         <p class="text-center">Aucun partenaire trouvé.</p>
     @else

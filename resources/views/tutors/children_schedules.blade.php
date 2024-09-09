@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="container">
-    <h1>Plannings des Activités</h1>
+    <h1 class="mb-5">Plannings des Activités</h1>
+
+    <!-- Texte introductif pour les parents -->
+    <p class="lead mb-4">
+        Chers parents, vous trouverez ci-dessous les plannings des stages auxquels vos enfants sont inscrits. 
+        Consultez la description des stages jour après jour. Si vous avez des questions, n'hésitez pas à contacter l'équipe d'encadrement.
+    </p>
 
     @if($children->isEmpty())
         <div class="alert alert-info">
@@ -10,10 +16,12 @@
         </div>
     @else
         @foreach($children as $child)
-            <div class="card mb-3">
-                <div class="card-header text-blue">
-                    <h2 class="mb-0">{{ $child->firstname }} {{ $child->lastname }}</h2>
-                </div>
+            <div class="card mb-4 shadow-sm">
+            <div class="card-header text-white" style="background-color: #6c757d;">
+    <h2 class="mb-0">{{ $child->firstname }} {{ $child->lastname }}</h2>
+</div>
+
+
                 <div class="card-body">
                     @if($child->registrations->isEmpty())
                         <div class="alert alert-warning">
@@ -27,7 +35,7 @@
                             @endphp
                             <div class="mb-4">
                                 <h4 class="font-weight-bold">{{ $activityGroup->activity->title }} - {{ $activityGroup->group->title }}</h4>
-                                <table class="table table-striped">
+                                <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Jour</th>

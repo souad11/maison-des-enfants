@@ -1,5 +1,5 @@
-{{-- resources/views/activity_group/participants.blade.php --}}
-@extends('layouts.template') {{-- Assurez-vous d'étendre le layout que vous utilisez --}}
+
+@extends('layouts.template') 
 
 @section('content')
     <div class="container">
@@ -10,7 +10,7 @@
             <ul class="list-group">
                 @foreach($children as $child)
                     <li class="list-group-item">
-                        {{ $child->firstname }} {{-- Assurez-vous que 'name' est un attribut du modèle Child --}}
+                        {{ $child->firstname }} 
                     </li>
                 @endforeach
             </ul>

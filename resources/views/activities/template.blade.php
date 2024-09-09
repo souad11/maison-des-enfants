@@ -1,24 +1,24 @@
 @extends('layouts.template')
 
-@section('title', 'Nos Activités')
+@section('title', 'Nos Stages')
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Nos Activités</h1>
+    <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Nos Stages</h1>
     
     <!-- Section for Weekly Activities -->
     <section class="mb-5">
-        <h2 class="text-primary">Activités Hebdomadaires</h2>
+        <h2 class="text-primary">Stages Hebdomadaires</h2>
         <p class="lead">
-            Organisées pendant les semaines de congé scolaire, ces activités visent à engager les enfants dans des expériences enrichissantes et amusantes qui complètent leur éducation scolaire régulière. Chaque semaine est thématique et conçue pour stimuler la curiosité et l'exploration. Nos programmes hebdomadaires sont variés, allant des ateliers créatifs aux sorties éducatives, en passant par des activités sportives et des découvertes scientifiques.
+            Organisées pendant les semaines de congé scolaire, ces Stages visent à engager les enfants dans des expériences enrichissantes et amusantes qui complètent leur éducation scolaire régulière. Chaque semaine est thématique et conçue pour stimuler la curiosité et l'exploration. Nos programmes hebdomadaires sont variés, allant des ateliers créatifs aux sorties éducatives, en passant par des activités enrichissantes et des découvertes scientifiques.
         </p>
     </section>
 
     <!-- Section for Yearly Activities -->
     <section class="mb-5">
-        <h2 class="text-primary">Activités à l'année</h2>
+        <h2 class="text-primary">Stages à l'année</h2>
         <p class="lead">
-            Nos activités à l'année sont conçues pour offrir une continuité dans l'apprentissage et le développement des enfants tout au long de l'année scolaire. Ces programmes permettent aux enfants de s'immerger plus profondément dans leurs domaines d'intérêt tout en bénéficiant d'un encadrement régulier et structuré.
+            Nos Stages à l'année sont conçues pour offrir une continuité dans l'apprentissage et le développement des enfants tout au long de l'année scolaire. Ces programmes permettent aux enfants de s'immerger plus profondément dans leurs domaines d'intérêt tout en bénéficiant d'un encadrement régulier et structuré.
         </p>
     </section>
 
@@ -28,8 +28,8 @@
                 <label for="filter" class="input-group-text">Filtrer par :</label>
                 <select name="filter" id="filter" class="form-select">
                     <option value="">-- Tous les types --</option>
-                    <option value="annuel" {{ request('filter') == 'annuel' ? 'selected' : '' }}>Activités à l'année</option>
-                    <option value="hebdomadaire" {{ request('filter') == 'hebdomadaire' ? 'selected' : '' }}>Activités hebdomadaires</option>
+                    <option value="annuel" {{ request('filter') == 'annuel' ? 'selected' : '' }}>Stages à l'année</option>
+                    <option value="hebdomadaire" {{ request('filter') == 'hebdomadaire' ? 'selected' : '' }}>Stages hebdomadaires</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Filtrer</button>
             </div>

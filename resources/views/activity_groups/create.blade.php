@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Associer une Activité à un Groupe</h1>
+    <h1>Nouveau stage</h1>
 
     <form action="{{ route('activity_groups.store') }}" method="POST">
         @csrf
@@ -43,7 +43,7 @@
             <input type="number" name="available_space" id="available_space" class="form-control" value="{{ old('available_space') }}" min="0" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer l'Association</button>
+        <button type="submit" class="btn btn-primary">Créer le stage</button>
     </form>
 </div>
 @endsection

@@ -35,14 +35,7 @@
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="langue">Langue:</label>
-                        <select class="form-control" id="langue" name="langue" required>
-                            <option value="fr">Français</option>
-                            <option value="en">Anglais</option>
-                            <!-- Ajoutez d'autres options de langue ici -->
-                        </select>
-                    </div>
+                   
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>

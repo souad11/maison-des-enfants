@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Modifier une Association Activité-Groupe')
+@section('title', 'Modifier un Stage Activité-Groupe')
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Modifier l'Association Activité-Groupe</h1>
+    <h1 class="text-center mb-5 p-3 bg-light text-dark" style="border-radius: 5px;">Modifier le Stage Activité-Groupe</h1>
 
     <form action="{{ route('activity_groups.update', $activityGroup->id) }}" method="POST">
         @csrf

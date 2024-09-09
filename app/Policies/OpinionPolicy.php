@@ -86,7 +86,6 @@ class OpinionPolicy
 
     public function viewAdmin(User $user): bool
     {
-        // Autorise seulement les administrateurs à rejeter des avis
         return $user->role === 'admin';
     }
 

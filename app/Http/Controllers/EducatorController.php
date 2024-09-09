@@ -59,7 +59,7 @@ class EducatorController extends Controller
                 'firstname' => 'required|string|max:255',
                 'lastname' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'langue' => 'required|string|max:2',
+                
             ]);
 
             $password = Str::random(10);  // Générer un mot de passe aléatoire

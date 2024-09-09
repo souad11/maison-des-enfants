@@ -18,7 +18,7 @@
                     <a href="{{ url('/about') }}" class="nav-item nav-link">A propos</a>
                     <a href="{{ url('/partnersTemplate') }}" class="nav-item nav-link">Nos partenaires</a>
                     <a href="{{ url('/equipe') }}" class="nav-item nav-link">Notre équipe</a>
-                        <a href="{{ url('/activitiesTemplate') }}" class="nav-item nav-link" >Nos activités</a>
+                        <a href="{{ url('/activitiesTemplate') }}" class="nav-item nav-link" >Nos Stages</a>
                         
                    
                     <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>

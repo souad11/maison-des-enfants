@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Créer un Planning</h1>
-
+    <h4>Vous pouvez créer un nouveau planning pour les stages d'activités que vous supervisés.</h4>
     @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

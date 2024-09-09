@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OpinionStatusMail;
 use App\Models\Opinion;
 use App\Models\Tutor;
 use Illuminate\Support\Facades\Gate;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth; // Importation correcte de Auth
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Mail;
 
 class OpinionController extends Controller
 {
@@ -67,6 +69,7 @@ class OpinionController extends Controller
         Opinion::create([
             'tutor_id' => $tutorId,
             'texte' => $request->input('texte'),
+            'is_approved' => null, 
         ]);
     
 
@@ -126,48 +129,75 @@ class OpinionController extends Controller
         return redirect()->route('opinions.index')->with('success', 'Opinion supprimée avec succès.');
     }
 
-    public function indexAdmin()
-    {
-        Gate::authorize('viewAdmin', Opinion::class);
+    // public function indexAdmin()
+    // {
+    //     Gate::authorize('viewAdmin', Opinion::class);
 
-        // Récupérer toutes les opinions
-        $opinions = Opinion::orderBy('created_at', 'desc')->get();
+    //     // Récupérer toutes les opinions
+    //     $opinions = Opinion::orderBy('created_at', 'desc')->get();
 
-        // Retourner la vue avec les avis
-        return view('opinions.indexAdmin', compact('opinions'));
+    //     // Retourner la vue avec les avis
+    //     return view('opinions.indexAdmin', compact('opinions'));
+    // }
+
+    public function indexAdmin(Request $request)
+{
+    Gate::authorize('viewAdmin', Opinion::class);
+
+    // Récupérer le statut de filtre du formulaire (si soumis)
+    $filterStatus = $request->input('status', 'all'); // Par défaut, afficher tous les avis
+
+    // Construction de la requête de base
+    $opinionsQuery = Opinion::orderBy('created_at', 'desc');
+
+    // Appliquer un filtre basé sur le statut
+    if ($filterStatus === 'approved') {
+        $opinionsQuery->where('is_approved', true);
+    } elseif ($filterStatus === 'rejected') {
+        $opinionsQuery->where('is_approved', false);
     }
 
+    // Exécuter la requête et récupérer les résultats
+    $opinions = $opinionsQuery->get();
+
+    // Retourner la vue avec les opinions filtrées et le statut sélectionné
+    return view('opinions.indexAdmin', compact('opinions', 'filterStatus'));
+}
+
+    
+    
     public function approve(Opinion $opinion)
     {
 
-        Gate::authorize('approve', Auth::user());
+        Gate::authorize('approve', $opinion);
 
         $opinion->update(['is_approved' => true]);
 
-        // Ajouter un message de session pour notifier le tuteur
-        $tutor = $opinion->tutor;
-        if ($tutor && $tutor->user) {
-            $tutor->user->session()->flash('status', 'Votre avis a été approuvé.');
-        }
+       
 
         return redirect()->route('dashboard')->with('success', 'Opinion approuvée avec succès.');
     }
 
     public function reject(Opinion $opinion)
-    {
+{
+    Gate::authorize('reject', $opinion);
 
-        Gate::authorize('reject', Auth::user());
+    // Mettre à jour le statut de l'opinion
+    $opinion->update(['is_approved' => false]);
 
-        $opinion->update(['is_approved' => false]);
+    
+    $tutorEmail = $opinion->tutor->user->email;
 
-        // Ajouter un message de session pour notifier le tuteur
-        $tutor = $opinion->tutor;
-        if ($tutor && $tutor->user) {
-            $tutor->user->session()->flash('status', 'Votre avis a été rejeté.');
-        }
+    $tutorName = $opinion->tutor->user->firstname;
 
-        return redirect()->route('dashboard')->with('success', 'Opinion rejetée.');
-    }
+    //dd($tutor);
+
+    
+    // Envoyer l'e-mail
+    Mail::to($tutorEmail)->send(new OpinionStatusMail($opinion, $tutorEmail, $tutorName));
+
+    return redirect()->route('dashboard')->with('success', 'Opinion rejetée.');
+}
 }
 
 

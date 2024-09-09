@@ -12,10 +12,13 @@
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h1 class="display-2 text-white animated slideInDown mb-4">Le meilleur lieu d'accueil pour vos enfants</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Découvrez nos activités extrascolaires enrichissantes, idéales pour stimuler le développement des enfants âgés de 3 à 12 ans.</p>
-                                    <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Inscrivez-vous</a>
-                                    <a href="" class="btn btn-dark rounded-pill py-sm-3 px-sm-5 animated slideInRight">Contactez-nous</a>
+                                <h1 class="display-2 text-white animated slideInDown mb-4">Le meilleur lieu d'accueil pour vos enfants</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Découvrez nos stages extrascolaires enrichissants, idéals pour stimuler le développement des enfants âgés de 4 à 12 ans.</p>
+                                <!-- Lien pour s'inscrire -->
+                                <a href="{{ route('register') }}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">Inscrivez-vous</a>
+                                <!-- Lien pour contacter -->
+                                <a href="{{ url('/contact') }}" class="btn btn-dark rounded-pill py-sm-3 px-sm-5 animated slideInRight">Contactez-nous</a>
+
                                 </div>
                             </div>
                         </div>
@@ -44,7 +47,7 @@
         <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-3">Nos Activités</h1>
+            <h1 class="mb-3">Nos Stages</h1>
             <p>Nous proposons une variété d'activités hebdomadaires et annuelles pour le développement et le divertissement des enfants, y compris des sessions spéciales le samedi.</p>
         </div>
         <div class="row g-4">

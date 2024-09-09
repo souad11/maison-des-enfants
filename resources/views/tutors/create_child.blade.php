@@ -8,6 +8,17 @@
 <div class="container">
     <h1>Ajouter un Enfant</h1>
 
+    {{-- Afficher les erreurs de validation --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('tutors.store_child') }}" method="POST">
         @csrf
 

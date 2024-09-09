@@ -76,7 +76,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tutors/children', [TutorController::class, 'storeChild'])->name('tutors.store_child');
     Route::get('/tutors/enfant', [TutorController::class, 'showChildren'])->name('tutor.children');
     Route::delete('/children/{child}', [TutorController::class, 'destroy'])->name('children.destroy');
-    Route::get('/tutor/feedbacks', [TutorController::class, 'showChildrenFeedbacks'])->name('tutor.children_feedbacks');
+    //Route::get('/tutor/feedbacks', [TutorController::class, 'showChildrenFeedbacks'])->name('tutor.children_feedbacks');
+    
+    Route::get('/tutor/feedbacks', [TutorController::class, 'showChildrenFeedbacks'])
+    ->name('tutors.children_feedbacks');
+    
     Route::get('/tutor/schedules', [TutorController::class, 'showChildrenSchedules'])->name('tutor.children_schedules');
     Route::get('/tutor/registrations', [TutorController::class, 'showChildrenRegistrations'])->name('tutor.children_registrations');
 

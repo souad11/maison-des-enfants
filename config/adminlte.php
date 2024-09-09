@@ -328,6 +328,20 @@ return [
             'icon' => 'fas fa-fw fa-calendar-alt', // Icône mise à jour pour représenter les activités
             'can'  => 'admin'
         ],
+      
+        [
+            'text' => 'Groupes',
+            'url'  => 'groups',
+            'icon' => 'fas fa-fw fa-users',
+            'can'  => 'admin',
+        ],
+        [
+            'text' => 'Stages d\'activités',
+            'url'  => '/activity_groups',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can'  => 'admin',
+            
+        ],
         [
             'text' => 'Prix',
             'url'  => '/prices',
@@ -339,19 +353,6 @@ return [
             'url' => '/educators',
             'icon' => 'fas fa-fw fa-chalkboard-teacher', 
             'can'  => 'admin', 
-        ],
-        [
-            'text' => 'Groupes',
-            'url'  => 'groups',
-            'icon' => 'fas fa-fw fa-users',
-            'can'  => 'admin',
-        ],
-        [
-            'text' => 'Activity Groups',
-            'url'  => '/activity_groups',
-            'icon' => 'fas fa-fw fa-layer-group',
-            'can'  => 'admin',
-            
         ],
         [
             'text' => 'Partenaires',
@@ -374,7 +375,7 @@ return [
         
         
         [
-            'text' => 'Activity Groups',
+            'text' => 'Mes Stages d\'activités',
             'url'  => '/showEducator',
             'icon' => 'fas fa-fw fa-layer-group',
             'can'  => 'educator',
@@ -386,25 +387,25 @@ return [
             'can'  => 'admin', 
         ],
         [
-            'text' => 'Plannings',
+            'text' => 'Les Plannings',
             'url' => '/schedules',
-            'icon' => 'fas fa-fw fa-calendar-check', // Icône représentant les plannings
+            'icon' => 'fas fa-fw fa-calendar-check', 
             'can'  => 'educator'
         ], 
         [
-            'text' => 'Feedbacks',
+            'text' => 'Mes Feedbacks',
             'url' => '/feedbacks',
-            'icon' => 'fas fa-fw fa-comments', // Icône représentant les feedbacks
+            'icon' => 'fas fa-fw fa-comments', 
             'can'  => 'educator'
         ],
         [
-            'text' => 'Feedbacks Enfants',
+            'text' => 'Rapports des enfants',
             'url'  => '/tutor/feedbacks',
             'icon' => 'fas fa-fw fa-comments', // Icône représentant les feedbacks
             'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien
         ],
         [
-            'text' => 'Plannings Enfants',
+            'text' => 'Plannings des stages',
             'url'  => '/tutor/schedules',
             'icon' => 'fas fa-fw fa-calendar-alt', // Icône représentant les plannings
             'can'  => 'tutor', // S'assure que seul le tuteur peut voir ce lien

@@ -17,7 +17,7 @@ class Feedback extends Model
 
     protected $table = 'feedbacks';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     // Relation avec l'enfant
     public function child()
