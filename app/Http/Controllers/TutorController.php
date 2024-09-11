@@ -6,6 +6,8 @@ use App\Models\Tutor;
 use App\Models\Child;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 class TutorController extends Controller
 {
@@ -165,6 +167,35 @@ public function showChildrenRegistrations()
 
 
     return view('tutors.children_registrations', compact('children'));
+}
+
+
+public function showTutorsWithChildren(Request $request)
+{
+
+    Gate::authorize('viewAny', Tutor::class);
+
+    // Récupérer le terme de recherche depuis le formulaire (par nom ou prénom)
+    $search = $request->input('search');
+
+    // Récupérer tous les tuteurs avec leurs enfants associés, filtrer par nom/prénom du tuteur ou des enfants si un terme de recherche est fourni
+    $tutors = Tutor::with('children')
+                    ->whereHas('user', function($query) use ($search) {
+                        if ($search) {
+                            $query->where('firstname', 'like', '%' . $search . '%')
+                                  ->orWhere('lastname', 'like', '%' . $search . '%');
+                        }
+                    })
+                    ->orWhereHas('children', function($query) use ($search) {
+                        if ($search) {
+                            $query->where('firstname', 'like', '%' . $search . '%')
+                                  ->orWhere('lastname', 'like', '%' . $search . '%');
+                        }
+                    })
+                    ->get();
+
+    // Retourner la vue avec les données filtrées
+    return view('tutors.admin', compact('tutors', 'search'));
 }
 
 

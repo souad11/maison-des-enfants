@@ -24,6 +24,55 @@
     </div>
 @endif
 
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-bell"></i> Notifications</h5>
+    </div>
+    <div class="card-body">
+        @if(auth()->user()->unreadNotifications->isEmpty())
+            <p class="text-center text-muted">Aucune notification.</p>
+        @else
+            <ul class="list-group">
+                @foreach(auth()->user()->unreadNotifications as $notification)
+                    <li class="list-group-item d-flex justify-content-between align-items-center" id="notification-{{ $notification->id }}">
+                        <div>
+                            <i class="fas fa-envelope text-primary"></i>
+                            <strong>Nouveau message de {{ $notification->data['sender_name'] }}</strong> :
+                            <span class="text-muted">{{ $notification->data['message_body'] }}</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="markAsRead('{{ $notification->id }}', '{{ $notification->data['sender_id'] }}')">
+                            <i class="fas fa-eye"></i> Voir le message
+                        </button>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+</div>
+
+<!-- Script AJAX -->
+<script>
+    function markAsRead(notificationId, senderId) {
+        fetch(`/notifications/${notificationId}/mark-as-read`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                // Supprimer la notification de l'interface après succès
+                document.getElementById(`notification-${notificationId}`).remove();
+                // Rediriger vers la page du message
+                window.location.href = `/messages/${senderId}`;
+            } else {
+                console.error('Erreur lors de la mise à jour de la notification.');
+            }
+        }).catch(error => {
+            console.error('Erreur lors de la requête:', error);
+        });
+    }
+</script>
 
     <div class="card">
         <div class="card-header">

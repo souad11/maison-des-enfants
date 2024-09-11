@@ -57,22 +57,30 @@ public function children($activityGroupId)
 
     
 
-    // Enregistrer un nouveau feedback
-    public function store(Request $request)
-    {
-        Gate::authorize('create', Feedback::class);
+// Enregistrer un nouveau feedback
+public function store(Request $request)
+{
+    // Vérification des autorisations
+    Gate::authorize('create', Feedback::class);
 
+    // Validation des données
+    $request->validate([
+        'child_id' => 'required|exists:children,id',
+        'activity_group_id' => 'required|exists:activity_groups,id',
+        'content' => 'required|string',
+    ]);
 
-        $request->validate([
-            'child_id' => 'required|exists:children,id',
-            'activity_group_id' => 'required|exists:activity_groups,id',
-            'content' => 'required|string',
-        ]);
+    // Créer le feedback
+    Feedback::create($request->all());
 
-        Feedback::create($request->all());
+    // Récupérer l'activity_group_id pour la redirection
+    $activityGroupId = $request->input('activity_group_id');
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback created successfully.');
-    }
+    // Rediriger vers la route feedbacks.children avec l'activity_group_id
+    return redirect()->route('feedbacks.children', ['activity_group_id' => $activityGroupId])
+        ->with('success', 'Feedback créé avec succès.');
+}
+
 
     // Afficher un feedback spécifique
     public function show($id)
@@ -96,37 +104,54 @@ public function children($activityGroupId)
         return view('feedbacks.edit', compact('feedback', 'children', 'activityGroups'));
     }
 
-    // Mettre à jour un feedback existant
-    public function update(Request $request, $id)
-    {
-        
+// Mettre à jour un feedback existant
+public function update(Request $request, $id)
+{
+    // Validation des champs
+    $request->validate([
+        'child_id' => 'required|exists:children,id',
+        'activity_group_id' => 'required|exists:activity_groups,id',
+        'content' => 'required|string',
+    ]);
 
-        $request->validate([
-            'child_id' => 'required|exists:children,id',
-            'activity_group_id' => 'required|exists:activity_groups,id',
-            'content' => 'required|string',
-        ]);
+    // Trouver le feedback à mettre à jour
+    $feedback = Feedback::findOrFail($id);
 
-        $feedback = Feedback::findOrFail($id);
+    // Vérification des autorisations
+    Gate::authorize('update', $feedback);
 
-        Gate::authorize('update', $feedback);
+    // Mettre à jour le feedback avec les nouvelles données
+    $feedback->update($request->all());
 
-        $feedback->update($request->all());
+    // Récupérer l'activity_group_id pour la redirection
+    $activityGroupId = $request->input('activity_group_id');
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback updated successfully.');
-    }
+    // Rediriger vers la route feedbacks.children avec l'activity_group_id
+    return redirect()->route('feedbacks.children', ['activity_group_id' => $activityGroupId])
+        ->with('success', 'Feedback mis à jour avec succès.');
+}
 
-    // Supprimer un feedback existant
-    public function destroy($id)
-    {
-        $feedback = Feedback::findOrFail($id);
 
-        Gate::authorize('delete', $feedback);
+// Supprimer un feedback existant
+public function destroy($id)
+{
+    // Trouver le feedback à supprimer
+    $feedback = Feedback::findOrFail($id);
 
-        $feedback->delete();
+    // Vérification des autorisations
+    Gate::authorize('delete', $feedback);
 
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback deleted successfully.');
-    }
+    // Récupérer l'activity_group_id avant de supprimer le feedback
+    $activityGroupId = $feedback->activityGroup->id;
+
+    // Supprimer le feedback
+    $feedback->delete();
+
+    // Rediriger vers la route feedbacks.children avec l'activity_group_id
+    return redirect()->route('feedbacks.children', ['activity_group_id' => $activityGroupId])
+        ->with('success', 'Feedback supprimé avec succès.');
+}
+
 
     
 }

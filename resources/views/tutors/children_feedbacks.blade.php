@@ -5,15 +5,16 @@
     <h1>Rapports des Enfants</h1>
 
 <!-- Texte explicatif pour les parents -->
-<div class="p-4 mb-4" style="background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 10px;">
-    <p class="lead" style="font-size: 1.2rem; color: #000;">
+<div class="p-4 mb-4" style="background-color: #e3f2fd; border: 1px solid #b3e5fc; border-radius: 10px;">
+    <p class="lead" style="font-size: 1.2rem; color: #01579b;">
         <strong>Chers parents,</strong> voici la liste des rapports pour vos enfants inscrits à nos activités. 
         Vous pouvez consulter les retours des éducateurs sur leur participation aux différents stages auxquels ils sont inscrits.
     </p>
-    <p style="font-size: 1rem; color: #000;">
+    <p style="font-size: 1rem; color: #0277bd;">
         <strong>Besoin de plus de détails ?</strong> N'hésitez pas à contacter les animateurs pour toute question ou pour obtenir des informations complémentaires sur les progrès de vos enfants.
     </p>
 </div>
+
 
 
 
@@ -33,41 +34,34 @@
         </div>
     </form>
 
-    <!-- Affichage des feedbacks -->
-    @if($children->isEmpty())
-        <div class="alert alert-info">
-            Vous n'avez aucun enfant inscrit à des activités.
-        </div>
-    @else
-        @foreach($children as $child)
-            <h2>{{ $child->firstname }} {{ $child->lastname }}</h2>
+   <!-- Affichage des feedbacks -->
+@if($children->isEmpty())
+    <div class="alert alert-info text-center p-4">
+        <i class="fas fa-info-circle fa-2x"></i><br>
+        Vous n'avez aucun enfant inscrit à des activités.
+    </div>
+@else
+    @foreach($children as $child)
+        <div class="mb-5 p-3" style="border-left: 5px solid black; background-color: #f8f9fa; border-radius: 10px;">
+            <h2 class="text">{{ $child->firstname }} {{ $child->lastname }}</h2>
 
             @if($child->feedbacks->isEmpty())
-                <div class="alert alert-warning">
-                    Aucun rapport disponible pour cet enfant.
+                <div class="alert alert-warning p-3 text-center">
+                    <i class="fas fa-exclamation-triangle"></i> Aucun rapport disponible pour cet enfant.
                 </div>
             @else
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Activité</th>
-                            <th>Groupe</th>
-                            <th>Rapports</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($child->feedbacks as $feedback)
-                            <tr>
-                                <td>{{ $feedback->activityGroup->activity->title }}</td>
-                                <td>{{ $feedback->activityGroup->group->title }}</td>
-                                <td>{{ $feedback->content }}</td>
-                                <td>{{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y') }}</td>
-                                </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                @foreach($child->feedbacks as $feedback)
+                    <div class="mb-3 p-3" style="background-color: #fff; border: 1px solid #ddd; border-radius: 10px;">
+                        <h5 class="text-dark font-weight-bold">{{ $feedback->activityGroup->activity->title }}</h5>
+                        <p class="text-muted mb-1"><strong>Groupe :</strong> {{ $feedback->activityGroup->group->title }}</p>
+                        <p class="text-secondary">{{ $feedback->content }}</p>
+                        <p class="text-right text-muted mb-0">
+                            <small>Rapporté le {{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y') }}</small>
+                        </p>
+                    </div>
+                @endforeach
             @endif
-        @endforeach
-    @endif
-</div>
+        </div>
+    @endforeach
+@endif
 @endsection

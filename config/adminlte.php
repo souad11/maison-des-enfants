@@ -323,6 +323,12 @@ return [
             'can' => 'manage-blog',
         ],
         [
+            'text'        => 'Mes messages',
+            'url'         => 'messages/conversation/create',
+            'icon'        => 'fas fa-fw fa-envelope', 
+
+        ],
+        [
             'text' => 'Activités',
             'url' => '/activities',
             'icon' => 'fas fa-fw fa-calendar-alt', // Icône mise à jour pour représenter les activités
@@ -359,6 +365,12 @@ return [
             'url' => '/partners',
             'icon' => 'fas fa-fw fa-handshake',
             'can' => 'admin'
+        ],
+        [
+            'text' => 'Parents',
+            'url' => '/tutors/admin',
+            'icon' => 'fas fa-fw fa-users', // Icône mise à jour pour représenter les parents
+            'can'  => 'admin'
         ],
         [
             'text' => 'Inscriptions',

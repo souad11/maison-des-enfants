@@ -18,8 +18,8 @@
         </div>
         <div class="card-footer">
             <a href="{{ route('feedbacks.edit', $feedback->id) }}" class="btn btn-warning">Modifier</a>
-            <a href="{{ route('feedbacks.index') }}" class="btn btn-secondary">Retour à la liste des Feedbacks</a>
-        </div>
+            <a href="{{ route('feedbacks.children', ['activity_group_id' => $feedback->activityGroup->id]) }}" class="btn btn-secondary">Retour à la liste d'enfants</a>
+            </div>
     </div>
 </div>
 @endsection

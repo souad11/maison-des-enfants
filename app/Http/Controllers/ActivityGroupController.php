@@ -26,22 +26,50 @@ class ActivityGroupController extends Controller
         return view('activity_groups.index', compact('activityGroups'));
     }
 
-    public function templateIndex()
+    public function templateIndex(Request $request)
     {
-        $today = Carbon::today();
-        $activities = ActivityGroup::with(['activity', 'group'])
-            ->join('activities', 'activity_groups.activity_id', '=', 'activities.id')
-            ->join('groups', 'activity_groups.group_id', '=', 'groups.id')
-            ->whereDate('activities.start_date', '>=', $today)
-            ->select('activity_groups.*', 'activities.start_date', 'groups.title as group_name')
-            ->get();
-
-
-
-            //dd($activities);
-        // $activities = Activity::all();
-        return view('activities.template', compact('activities'));
+        // Récupérer le filtre par type depuis la requête
+        $filterType = $request->input('type');
+        
+        // Commencer à construire la requête avec les relations
+        $query = ActivityGroup::with(['activity', 'group']);
+        
+        // Filtrer par type d'activité si un filtre est fourni
+        if (!empty($filterType)) {
+            $query->whereHas('activity', function($q) use ($filterType) {
+                $q->where('type', $filterType);
+            });
+        }
+    
+        // Récupérer les résultats filtrés
+        $activities = $query->get();
+        
+        // Récupérer tous les types d'activités pour le formulaire de filtre
+        $allTypes = Activity::select('type')->distinct()->get();
+        
+        // Passer les données à la vue
+        return view('activity_groups.template', compact('activities', 'allTypes'));
     }
+    
+    
+    // public function filterActivities(Request $request)
+    // {
+    //     $filter = $request->input('filter');
+
+    //     $activitiesQuery = ActivityGroup::with('activity', 'group');
+
+    //     // Filtrer par type d'activité
+    //     if ($filter) {
+    //         $activitiesQuery->whereHas('activity', function($query) use ($filter) {
+    //             $query->where('type', $filter);
+    //         });
+    //     }
+
+    //     $activities = $activitiesQuery->get();
+
+    //     return view('activities.template', compact('activities'));
+    // }
+    
 
 
 //     public function index()

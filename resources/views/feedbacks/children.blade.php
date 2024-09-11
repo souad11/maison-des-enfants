@@ -32,7 +32,12 @@
                                 <a href="{{ route('feedbacks.show', $feedback->id) }}" class="btn btn-info">Afficher</a>
                                 <!-- Bouton pour éditer le feedback -->
                                 <a href="{{ route('feedbacks.edit', $feedback->id) }}" class="btn btn-warning">Modifier</a>
-                            @endif
+                                <form action="{{ route('feedbacks.destroy', $feedback->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                                @endif
                         </td>
                     </tr>
                 @endforeach

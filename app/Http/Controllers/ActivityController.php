@@ -126,22 +126,7 @@ class ActivityController extends Controller
     }
 
 
-        public function filterActivities(Request $request)
-    {
-        $filter = $request->input('filter');
 
-        $activitiesQuery = ActivityGroup::with('activity', 'group');
-
-        // Filtrer par type d'activité
-        if ($filter) {
-            $activitiesQuery->whereHas('activity', function($query) use ($filter) {
-                $query->where('type', $filter);
-            });
-        }
-
-        $activities = $activitiesQuery->get();
-
-        return view('activities.template', compact('activities'));
-    }
+    
     
 }

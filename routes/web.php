@@ -9,6 +9,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OpinionController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
@@ -44,7 +45,10 @@ Route::resource('activity_groups', ActivityGroupController::class);
 
 Route::get('/activity-group/{id}/participants', [ActivityGroupController::class, 'showParticipants'])->name('activity-groups.participants');
 
-Route::get('/activities/filter', [ActivityController::class, 'filterActivities'])->name('activities.filter');
+// Route::get('/activities/filter', [ActivityController::class, 'filterActivities'])->name('activities.filter');
+
+Route::get('/activity_groups/filter', [ActivityGroupController::class, 'filter'])->name('activity_groups.filter');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('activities', ActivityController::class);
@@ -115,7 +119,9 @@ Route::get('/registrations', [RegistrationController::class, 'index'])->name('re
 
 
 
-Route::get('/activitiesTemplate', [ActivityGroupController::class, 'templateIndex'])->name('activities.template');
+//Route::get('/activitiesTemplate', [ActivityGroupController::class, 'templateIndex'])->name('activities.template');
+Route::get('/activitiesTemplate', [ActivityGroupController::class, 'templateIndex'])->name('activity_groups.template');
+
 // Route::get('/activity', [ActivityController::class, 'index'])->name('activities.index');
 
 Route::get('/equipe', [EducatorController::class, 'templateIndex'])->name('educators.template');
@@ -148,6 +154,19 @@ Route::get('/about', function () {
 Route::get('/partner', function () {
     return view('partner');
 });
+Route::middleware('auth')->group(function () {
+    Route::get('messages/create', [MessageController::class, 'create'])->name('message.create'); // Route pour afficher le formulaire de création
+    Route::post('messages/{user}', [MessageController::class, 'store'])->name('message.store');
+    Route::get('messages/{user}', [MessageController::class, 'index'])->name('message.index'); // Route pour voir les messages
+    Route::get('messages/conversation/create', [MessageController::class, 'createConversation'])->name('messages.createConversation');
+    //Route::get('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+    // Route::delete('notifications/{id}/delete', [MessageController::class, 'deleteNotification'])->name('notifications.delete');
+   // Route::post('notifications/{id}/mark-as-read', [MessageController::class, 'markAsReadAndRedirect'])->name('notifications.markAsReadAndRedirect');
+    Route::post('notifications/{id}/mark-as-read', [MessageController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+});
+
+Route::get('/tutors/admin', [TutorController::class, 'showTutorsWithChildren'])->name('tutors.admin');
 
 
 // Auth routes (en général pour l'enregistrement, la réinitialisation du mot de passe, etc.)
