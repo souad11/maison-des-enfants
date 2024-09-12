@@ -29,23 +29,12 @@ class Group extends Model
     return $this->belongsToMany(Activity::class, 'activity_groups', 'group_id', 'activity_id');
 }
 
+// Relation pour les ActivityGroups
+public function activityGroups()
+{
+    return $this->hasMany(ActivityGroup::class);
+}
 
-    // Méthodes
-    // public function addParticipant()
-    // {
-    //     if ($this->available_space > 0) {
-    //         $this->available_space--;
-    //         $this->save();
-    //     } else {
-    //         throw new \Exception("Pas de place disponible");
-    //     }
-    // }
 
-    // public function removeParticipant()
-    // {
-    //     if ($this->available_space < $this->capacity) {
-    //         $this->available_space++;
-    //         $this->save();
-    //     }
-    // }
+    
 }

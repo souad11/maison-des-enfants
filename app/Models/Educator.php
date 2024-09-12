@@ -24,6 +24,11 @@ class Educator extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function activityGroups()
+    {
+        return $this->hasMany(ActivityGroup::class);
+    }
+
 
 
 }
