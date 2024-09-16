@@ -88,14 +88,17 @@
             @else
                 <ul class="list-group">
                     @foreach($events as $event)
+                   
+
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
                                     <strong>{{ $event->title }}</strong> - {{ \Carbon\Carbon::parse($event->event_date)->format('d/m/Y') }}
                                     <p>{{ $event->description }}</p>
                                     @if($event->photo)
-                                        <img src="{{ asset('storage/public/events/' . $event->photo) }}" alt="Event Photo" class="img-thumbnail" width="150">
-                                    @endif
+    <img src="{{ asset('storage/' . $event->photo) }}" alt="Event Photo" class="img-thumbnail" width="150">
+@endif
+
                                 </div>
                                 @if (Auth::user()->role === 'admin')
                                 <div class="btn-group" role="group">

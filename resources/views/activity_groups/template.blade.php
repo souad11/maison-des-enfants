@@ -87,7 +87,7 @@
                         <!-- Pied de la carte -->
                         <div class="card-footer text-end">
                             @if (Auth::check() && Auth::user()->role == 'tutor')
-                                <a href="#" class="btn btn-outline-primary btn-sm">Inscrire son enfant</a>
+                            <a href="{{ route('activity_group.register', ['id' => $activityGroup->id]) }}" class="btn btn-primary">Inscrire mon enfant</a>
                             @else
                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">Connectez-vous pour inscrire votre enfant</a>
                             @endif

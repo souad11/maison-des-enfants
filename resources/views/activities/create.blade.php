@@ -9,7 +9,7 @@
 @section('content')
 
 <div class="container">
-    <h1>Créer une Activité</h1>
+    
 
     <!-- Affichage des erreurs de validation -->
     @if($errors->any())

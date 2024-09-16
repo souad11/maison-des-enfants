@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Child;
+use Illuminate\Support\Facades\DB;
 
 class ChildSeeder extends Seeder
 {
@@ -14,6 +15,10 @@ class ChildSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        Child::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         Child::create([
             'tutor_id' => 1, 
             'firstname' => 'Alice',
@@ -26,15 +31,15 @@ class ChildSeeder extends Seeder
             'tutor_id' => 2, 
             'firstname' => 'Bob',
             'lastname' => 'Martin',
-            'birthday' => '2020-07-22',
+            'birthday' => '2016-07-22',
             'gender' => 'male',
         ]);
 
         Child::create([
             'tutor_id' => 1, 
             'firstname' => 'Claire',
-            'lastname' => 'Lemoine',
-            'birthday' => '2016-11-09',
+            'lastname' => 'Dupont',
+            'birthday' => '2014-11-09',
             'gender' => 'female',
         ]);
 

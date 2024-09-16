@@ -31,9 +31,6 @@ class RegistrationController extends Controller
         return view('activity_groups.register', compact('activityGroup', 'children'));
     }
 
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////            INTEGRATION DE STRIPE PAS TOTALEMENT FINIT       //////////////////////////////
     
     public function store(Request $request)
     {

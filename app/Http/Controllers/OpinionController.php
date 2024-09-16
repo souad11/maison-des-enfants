@@ -173,8 +173,6 @@ class OpinionController extends Controller
 
         $opinion->update(['is_approved' => true]);
 
-       
-
         return redirect()->route('dashboard')->with('success', 'Opinion approuvée avec succès.');
     }
 
@@ -189,9 +187,6 @@ class OpinionController extends Controller
     $tutorEmail = $opinion->tutor->user->email;
 
     $tutorName = $opinion->tutor->user->firstname;
-
-    //dd($tutor);
-
     
     // Envoyer l'e-mail
     Mail::to($tutorEmail)->send(new OpinionStatusMail($opinion, $tutorEmail, $tutorName));

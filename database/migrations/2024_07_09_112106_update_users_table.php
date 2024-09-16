@@ -16,7 +16,7 @@ return new class extends Migration
             //$table->string('name', 60)->change();	//Ne fonctionne pas avec ENUM
             $table->renameColumn('name', 'firstname');
 
-            $table->string('lastname', 60)->after('name');
+            $table->string('lastname', 60)->after('firstname');
             $table->string('login', 30)->after('id');
             $table->string('langue', 2);
             $table->enum('role', ['admin','educator','tutor'])

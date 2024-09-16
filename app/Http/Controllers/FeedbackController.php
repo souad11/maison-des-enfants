@@ -11,21 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
-    public function index()
-    {
-
-        Gate::authorize('viewAny', Feedback::class);
-
-        // Obtenir l'animateur connecté
-        $educatorId = Auth::user()->educator->id;
-    
-        // Récupérer les feedbacks des groupes d'activités gérés par cet animateur
-        $feedbacks = Feedback::whereHas('activityGroup', function($query) use ($educatorId) {
-            $query->where('educator_id', $educatorId);
-        })->with(['child', 'activityGroup'])->get();
-    
-        return view('feedbacks.index', compact('feedbacks'));
-    }
+   
 
     public function create(Request $request)
 {

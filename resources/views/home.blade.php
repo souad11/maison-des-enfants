@@ -123,7 +123,7 @@
                     <div class="event-item bg-light rounded p-4">
                         @if($event->photo)
                             <div class="mb-3 text-center">
-                                <img src="{{ asset('storage/public/events/' . $event->photo) }}" alt="{{ $event->title }}" class="img-fluid rounded">
+                                <img src="{{ asset('storage/' . $event->photo) }}" alt="{{ $event->title }}" class="img-fluid rounded">
                             </div>
                         @endif
                         <h5 class="mb-1">{{ $event->title }}</h5>

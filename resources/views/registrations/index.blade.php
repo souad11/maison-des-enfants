@@ -40,6 +40,7 @@
                                 {{ $registration->status }}
                             </span>
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Group;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class GroupSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        Group::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         Group::create([
             'title' => 'Les fruits',
             'min_age' => 4,
