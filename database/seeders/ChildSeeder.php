@@ -42,6 +42,38 @@ class ChildSeeder extends Seeder
             'birthday' => '2014-11-09',
             'gender' => 'female',
         ]);
+        Child::create([
+            'tutor_id' => 3, 
+            'firstname' => 'David',
+            'lastname' => 'Leblanc',
+            'birthday' => '2018-05-12',
+            'gender' => 'male',
+        ]);
+        
+        Child::create([
+            'tutor_id' => 3, 
+            'firstname' => 'Emma',
+            'lastname' => 'Moreau',
+            'birthday' => '2017-08-30',
+            'gender' => 'female',
+        ]);
+        
+        Child::create([
+            'tutor_id' => 2, 
+            'firstname' => 'Lucas',
+            'lastname' => 'Martin',
+            'birthday' => '2020-02-19',
+            'gender' => 'male',
+        ]);
+        
+        Child::create([
+            'tutor_id' => 3, 
+            'firstname' => 'Sophie',
+            'lastname' => 'Leblanc',
+            'birthday' => '2015-09-25',
+            'gender' => 'female',
+        ]);
+        
 
     }
 }

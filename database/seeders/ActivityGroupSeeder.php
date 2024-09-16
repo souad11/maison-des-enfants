@@ -42,6 +42,35 @@ class ActivityGroupSeeder extends Seeder
                 'capacity' => 15,
                 'available_space' => 15,
             ],
+            [
+                'activity_id' => 3, 
+                'group_id' => 1,
+                'educator_id' => 3,
+                'capacity' => 15,
+                'available_space' => 15,
+            ],
+            [
+                'activity_id' => 3, 
+                'group_id' => 2,
+                'educator_id' => 2,
+                'capacity' => 15,
+                'available_space' => 15,
+            ],
+            [
+                'activity_id' => 4, 
+                'group_id' => 1,
+                'educator_id' => 2,
+                'capacity' => 15,
+                'available_space' => 15,
+            ],
+            [
+                'activity_id' => 5, 
+                'group_id' => 2,
+                'educator_id' => 1,
+                'capacity' => 15,
+                'available_space' => 15,
+            ],
+            
             
         ]);
     }

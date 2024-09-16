@@ -33,7 +33,7 @@ class OpinionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'tutor_id' => 1,
+                'tutor_id' => 3,
                 'texte' => 'Les activités sont intéressantes, mais je pense qu\'il serait bien d\'ajouter plus d\'activités en plein air.',
                 'is_approved' => false, // Opinion non approuvée
                 'created_at' => now(),

@@ -40,6 +40,13 @@ class FeedbackSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'child_id' => 4, // David Leblanc
+                'activity_group_id' => 1, // ID du groupe "Les fruits"
+                'content' => 'David est très curieux et pose souvent des questions pertinentes. Il est également très sociable avec les autres enfants.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

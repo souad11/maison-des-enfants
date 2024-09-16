@@ -17,6 +17,7 @@
                 </div>
             </div>
         </form>
+
         @if($tutors->isEmpty())
             <div class="alert alert-warning text-center">
                 <strong>Aucun tuteur trouvé.</strong>
@@ -33,6 +34,7 @@
                             <th>Code Postal</th>
                             <th>Contact d'Urgence</th>
                             <th>Enfants</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,6 +58,15 @@
                                             @endforeach
                                         </ul>
                                     @endif
+                                </td>
+                                <!-- Colonne des actions CRUD -->
+                                <td>
+                                    <a href="{{ route('tutors.edit', $tutor->id) }}" class="btn btn-sm btn-warning">Modifier</a>
+                                    <form action="{{ route('tutors.destroyTutor', $tutor->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tuteur ?')">Supprimer</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

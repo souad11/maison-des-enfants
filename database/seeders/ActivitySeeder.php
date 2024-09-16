@@ -17,6 +17,24 @@ class ActivitySeeder extends Seeder
       
         Activity::create([
             'price_id' => 1, 
+            'title' => 'Vacances de la Toussaint S1',
+            'type' => 'Hebdomadaire',
+            'description' => 'Première semaine de congé pour les vacances de la Toussaint',
+            'start_date' => '2024-10-28',
+            'end_date' => '2024-11-01',
+        ]);
+        
+        Activity::create([
+            'price_id' => 1, 
+            'title' => 'Vacances de la Toussaint S2',
+            'type' => 'Hebdomadaire',
+            'description' => 'Deuxième semaine de congé pour les vacances de la Toussaint',
+            'start_date' => '2024-11-04',
+            'end_date' => '2024-11-08',
+        ]);
+        
+        Activity::create([
+            'price_id' => 1, 
             'title' => 'Vacances de Noêl S1',
             'type' => 'Hebdomadaire',
             'description' => 'Première semaine de congé pour les vacances de Noêl',

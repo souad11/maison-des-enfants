@@ -47,6 +47,15 @@ class UserSeeder extends Seeder
                         'role'=>'educator',
                     ],
                     [
+                        'login' => 'louis',
+                        'firstname' => 'Louis',
+                        'lastname' => 'Durand',
+                        'email' => 'louis@durant.com',
+                        'password' => '12345678',
+                        'role' => 'educator',
+                    ],
+                    
+                    [
                         'login' => 'jane',
                         'firstname' => 'Jane',
                         'lastname' => 'Smith',
@@ -59,6 +68,14 @@ class UserSeeder extends Seeder
                         'firstname' => 'John',
                         'lastname' => 'Doe',
                         'email' => 'john@doe.com',
+                        'password' => '12345678',
+                        'role' => 'tutor',
+                    ],
+                    [
+                        'login' => 'steve',
+                        'firstname' => 'Steve',
+                        'lastname' => 'Martin',
+                        'email' => 'steve@martin.com',
                         'password' => '12345678',
                         'role' => 'tutor',
                     ],

@@ -30,7 +30,7 @@ class EducatorSeeder extends Seeder
         ]);
 
         Educator::create([
-            'user_id' => 3,
+            'user_id' => 4,
             'description' => 'Formateur en activités sportives, motivé par l\'engagement communautaire.',
             'photo' => 'educator3.jpg',
         ]);

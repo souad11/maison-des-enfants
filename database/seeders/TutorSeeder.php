@@ -18,7 +18,7 @@ class TutorSeeder extends Seeder
         Tutor::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
         Tutor::create([
-            'user_id' => 4, // Utilisez l'ID de l'utilisateur approprié ici
+            'user_id' => 5, // Utilisez l'ID de l'utilisateur approprié ici
             'address' => 'Rue de la Loi 16',
             'postal_code' => '1000',
             'phone_number' => '0470123456', // Numéro belge
@@ -26,20 +26,20 @@ class TutorSeeder extends Seeder
         ]);
 
         Tutor::create([
-            'user_id' => 5,
+            'user_id' => 6,
             'address' => 'Avenue Louise 120',
             'postal_code' => '1050',
             'phone_number' => '0485123456',
             'emergency_contact' => '0485987654',
         ]);
 
-        // Tutor::create([
-        //     'user_id' => 3,
-        //     'address' => 'Rue Neuve 58',
-        //     'postal_code' => '1000',
-        //     'phone_number' => '0479123456',
-        //     'emergency_contact' => 'Pierre Leclercq - 0477987654',
-        // ]);
+        Tutor::create([
+            'user_id' => 7,
+            'address' => 'Rue Neuve 58',
+            'postal_code' => '1000',
+            'phone_number' => '0479123456',
+            'emergency_contact' => '0477987654',
+        ]);
 
         
     }

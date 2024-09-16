@@ -39,6 +39,34 @@ class RegistrationSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'child_id' => 4, // David Leblanc, né en 2018 (6 ans), groupe "Les fruits"
+                'activity_group_id' => 1, // ID du groupe 1: Les fruits
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'child_id' => 5, // Emma Moreau, née en 2017 (7 ans), groupe "Les fleurs"
+                'activity_group_id' => 2, // ID du groupe 2: Les fleurs
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'child_id' => 6, // Lucas Martin, né en 2020 (4 ans), groupe "Les fruits"
+                'activity_group_id' => 1, // ID du groupe 1: Les fruits
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'child_id' => 7, // Sophie Leblanc, née en 2015 (9 ans), groupe "Les fleurs"
+                'activity_group_id' => 2, // ID du groupe 2: Les fleurs
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

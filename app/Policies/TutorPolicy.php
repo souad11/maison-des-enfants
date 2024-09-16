@@ -32,21 +32,23 @@ class TutorPolicy
 //         //
 //     }
 
-//     /**
-//      * Determine whether the user can update the model.
-//      */
-//     public function update(User $user, Tutor $tutor): bool
-//     {
-//         //
-//     }
+     /**
+     * Vérifie si l'utilisateur peut mettre à jour un tuteur.
+     */
+    public function update(User $user, Tutor $tutor)
+    {
+        // Seul un utilisateur avec un rôle admin peut mettre à jour un tuteur
+        return $user->role === 'admin';
+    }
 
-//     /**
-//      * Determine whether the user can delete the model.
-//      */
-//     public function delete(User $user, Tutor $tutor): bool
-//     {
-//         //
-//     }
+/**
+     * Vérifie si l'utilisateur peut supprimer un tuteur.
+     */
+    public function delete(User $user, Tutor $tutor)
+    {
+        // Seul un utilisateur avec un rôle admin peut supprimer un tuteur
+        return $user->role === 'admin';
+    }
 
 //     /**
 //      * Determine whether the user can restore the model.
