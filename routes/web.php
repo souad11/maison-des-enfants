@@ -9,12 +9,13 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\Route;
 
 // Page d'accueil
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 // Pages statiques (contact, à propos)
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/about', function () {

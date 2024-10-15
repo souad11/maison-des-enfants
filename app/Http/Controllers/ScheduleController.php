@@ -48,7 +48,7 @@ class ScheduleController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'activity_group_id' => 'required|exists:activity_group,id',
+        'activity_group_id' => 'required|exists:activity_groups,id',
         'monday' => 'nullable|string|max:255',
         'tuesday' => 'nullable|string|max:255',
         'wednesday' => 'nullable|string|max:255',

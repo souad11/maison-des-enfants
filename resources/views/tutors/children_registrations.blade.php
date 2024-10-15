@@ -46,7 +46,7 @@
                                             <td>{{ $activityGroup->group->title }}</td>
                                             <td>
                                                 <span class="badge 
-                                                    @if($registration->status == 'approved') bg-success 
+                                                    @if($registration->status == 'paid') bg-success 
                                                     @elseif($registration->status == 'pending') bg-warning 
                                                     @else bg-danger @endif">
                                                     {{ ucfirst($registration->status) }}

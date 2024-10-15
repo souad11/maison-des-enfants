@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             TutorSeeder::class,
             EducatorSeeder::class,
             ActivitySeeder::class,
-             ActivityGroupSeeder::class,
+            ActivityGroupSeeder::class,
             ChildSeeder::class,
             ScheduleSeeder::class,
             EventSeeder::class,
